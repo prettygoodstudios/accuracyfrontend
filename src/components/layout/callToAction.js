@@ -3,6 +3,9 @@ import React, {Component} from "react";
 let tmpBill = new Image();
 tmpBill.src = "https://s3-us-west-2.amazonaws.com/staticgeofocus/Bill.png";
 const bill = tmpBill;
+let tmpPerson = new Image();
+tmpPerson.src = "https://s3-us-west-2.amazonaws.com/staticgeofocus/Person.png";
+const person = tmpPerson;
 let bills = [];
 
 class CallToAction extends Component {
@@ -29,6 +32,7 @@ class CallToAction extends Component {
     }
     cxt.fillStyle = "white";
     cxt.clearRect(0,0,canvas.width,canvas.height);
+    cxt.drawImage(person, canvas.width/2-person.width/2, canvas.height-person.height);
     bills.forEach((b) => {
       const {x, y, degrees} = b;
       b.y += 5;
