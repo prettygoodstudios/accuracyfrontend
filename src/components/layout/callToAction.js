@@ -3,19 +3,38 @@ import React, {Component} from "react";
 let tmpBill = new Image();
 tmpBill.src = "https://s3-us-west-2.amazonaws.com/staticgeofocus/Bill.png";
 const bill = tmpBill;
-let tmpPerson = new Image();
-tmpPerson.src = "https://s3-us-west-2.amazonaws.com/staticgeofocus/Person.png";
-const person = tmpPerson;
+let person = {
+  frames: [],
+  x: 0,
+  frame: 0,
+  frameRate: 0
+}
+for(let i = 1; i < 9; i++){
+  let tmpFrame= new Image();
+  tmpFrame.src = `https://s3-us-west-2.amazonaws.com/staticgeofocus/frame${i}.png`;
+  person.frames.push(tmpFrame);
+}
 let bills = [];
 
 class CallToAction extends Component {
 
   constructor(){
     super();
+    const {innerWidth, innerHeight} = window;
+    this.state = {
+      width: innerWidth,
+      height: innerHeight*0.8
+    }
   }
 
   componentDidMount(){
     window.setInterval(this.updateCanvas ,1000/60);
+    window.addEventListener("resize", () => {
+      this.setState({
+        width: innerWidth,
+        height: innerHeight*0.8
+      });
+    });
   }
 
   updateCanvas = () => {
@@ -32,7 +51,20 @@ class CallToAction extends Component {
     }
     cxt.fillStyle = "white";
     cxt.clearRect(0,0,canvas.width,canvas.height);
-    cxt.drawImage(person, canvas.width/2-person.width/2, canvas.height-person.height);
+    cxt.drawImage(person.frames[person.frame], person.x, canvas.height - person.frames[person.frame].height);
+    person.x += 5;
+    person.frameRate++;
+    if(person.frameRate > 6){
+      person.frameRate = 0;
+      person.frame++;
+      console.log(person.frame);
+      if(person.frame == person.frames.length){
+        person.frame = 0;
+      }
+    }
+    if(person.x > canvas.width){
+      person.x = -person.frames[person.frame].width;
+    }
     bills.forEach((b) => {
       const {x, y, degrees} = b;
       b.y += 5;
@@ -46,14 +78,14 @@ class CallToAction extends Component {
 
   render(){
     const {title, subtitle} = this.props;
-    const {innerWidth, innerHeight} = window;
+    const {width, height} = this.state;
     return(
       <div className="call-to-action">
         <div className="call-to-action__title-wrapper">
           <h1>{title}</h1>
           <h3>{subtitle}</h3>
         </div>
-        <canvas id="animationWrapper" className="call-to-action__canvas" width={innerWidth} height={innerHeight*0.8}></canvas>
+        <canvas id="animationWrapper" className="call-to-action__canvas" width={width} height={height}></canvas>
       </div>
     )
   }

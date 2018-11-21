@@ -10,6 +10,7 @@ export default class App extends Component {
       <div>
         <Header title="Accuracy" items={items}/>
         <CallToAction title="Our Precision & Accuracy" subtitle="Saves You $$$" />
+        <p>Vector Illustration by <a href="https://www.Vecteezy.com">www.vecteezy.com</a></p>
       </div>
     );
   }
