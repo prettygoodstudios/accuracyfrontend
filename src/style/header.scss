@@ -1,20 +1,24 @@
 .header{
+  position: fixed;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   height: 70px;
+  width: 100%;
   background-color: $primary-color;
   &__title{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     height: 100%;
-    margin-left: 20px;
     a{
       font-size: 2em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      padding: 0px 20px 0px 20px;
       color: $white-text-color;
       &:hover{
         text-decoration: none;
+        background-color: $accent-color;
       }
     }
   }
@@ -22,6 +26,7 @@
   &__menu{
     list-style: none;
     height: 100%;
+    padding-left: 0px;
     &__item{
       display: inline-flex;
       height: 100%;
@@ -38,6 +43,49 @@
       }
       &:hover{
         background-color: $accent-color;
+      }
+    }
+  }
+  &__toggle{
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 700px){
+  .header{
+    &__menu{
+      display: none;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      background-color: $white-text-color;
+      &__item{
+        height: auto;
+        display: block;
+        a{
+          padding: 20px;
+          color: $dark-text-color;
+          &:hover{
+            color: $white-text-color;
+            background-color: $dark-text-color;
+          }
+        }
+      }
+    }
+    &__toggle{
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: 20px;
+      button{
+        background-color: transparent;
+        border: 1px solid $white-text-color;
+        color: $white-text-color;
+        &:hover{
+          background-color: $accent-color;
+        }
       }
     }
   }
