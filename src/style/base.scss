@@ -1,0 +1,12 @@
+$dark-text-color: #4A4A4A;
+$primary-color: #D64541;
+$white-text-color: #ECECEC;
+$accent-color: #96281b;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Avenir";
+  color: $dark-text-color;
+}

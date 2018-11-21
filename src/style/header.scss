@@ -1,0 +1,44 @@
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 70px;
+  background-color: $primary-color;
+  &__title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin-left: 20px;
+    a{
+      font-size: 2em;
+      color: $white-text-color;
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__menu{
+    list-style: none;
+    height: 100%;
+    &__item{
+      display: inline-flex;
+      height: 100%;
+      a{
+        height: 100%;
+        display: flex;
+        padding: 0px 20px 0px 20px;
+        flex-direction: column;
+        justify-content: center;
+        color: $white-text-color;
+        &:hover{
+          text-decoration: none;
+        }
+      }
+      &:hover{
+        background-color: $accent-color;
+      }
+    }
+  }
+}
