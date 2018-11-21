@@ -1,0 +1,31 @@
+.call-to-action{
+  position: relative;
+  margin-top: 70px;
+  height: 80vh;
+  &__title-wrapper{
+    background-color: rgba(236, 236, 236, 0.5);
+    color: $primary-color;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    h1{
+      font-size: 2.5em;
+      text-align: center;
+    }
+    h3{
+      font-size: 2.5em;
+      text-align: center;
+    }
+  }
+  &__canvas{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0px;
+    left: 0px;
+  }
+}

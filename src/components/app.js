@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Header from "./layout/header";
+import CallToAction from "./layout/callToAction";
 
 export default class App extends Component {
   render() {
@@ -8,6 +9,7 @@ export default class App extends Component {
     return (
       <div>
         <Header title="Accuracy" items={items}/>
+        <CallToAction title="Our Precision & Accuracy" subtitle="Saves You $$$" />
       </div>
     );
   }
