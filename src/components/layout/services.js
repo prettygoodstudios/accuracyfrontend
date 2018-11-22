@@ -3,7 +3,7 @@ import React from 'react';
 const Services = (props) => {
   return(
     <div>
-      <p><span class="start-phrase">Our services</span>  here is a comprehensive list of the various different accounting services we provide. We charge by the hour inorder to get a quote for a particular product shedule an apointment with one of our friendly staff. </p>
+      <p><span className="start-phrase">Our services</span>  here is a comprehensive list of the various different accounting services we provide. We charge by the hour inorder to get a quote for a particular product shedule an apointment with one of our friendly staff. </p>
       <table>
         <thead>
           <tr>

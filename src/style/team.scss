@@ -1,0 +1,29 @@
+.team-wrapper{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  &__member{
+    color: $dark-text-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0px 20px 20px 20px;
+    img{
+
+    }
+    &__title{
+      font-size: 1.5em;
+    }
+    &__name{
+      font-size: 2em;
+    }
+  }
+}
+
+@media only screen and (max-width: 619px) {
+  .team-wrapper{
+    justify-content: center;
+  }
+}

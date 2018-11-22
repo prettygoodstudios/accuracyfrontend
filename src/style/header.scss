@@ -93,6 +93,9 @@
         &:hover{
           background-color: $accent-color;
         }
+        &:focus{
+          outline: none;
+        }
       }
     }
   }
