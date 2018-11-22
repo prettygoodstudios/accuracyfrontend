@@ -10,3 +10,42 @@ html, body {
   font-family: "Avenir";
   color: $dark-text-color;
 }
+
+.container{
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 700px;
+}
+
+.start-phrase{
+  font-size: 2em;
+}
+
+table{
+  width: 100%;
+  thead{
+    background-color: $primary-color;
+    color: $white-text-color;
+    height: 50px;
+    th{
+      font-size: 2em;
+      text-align: center;
+      width: 50%;
+    }
+  }
+  tbody{
+    background-color: #FFFFFF;
+    color: $dark-text-color;
+    tr{
+      height: 50px;
+    }
+    td{
+      text-align: center;
+      font-size: 1.5em;
+    }
+    tr:nth-child(2n+2){
+      background-color: $white-text-color;
+    }
+  }
+}

@@ -69,9 +69,9 @@ class CallToAction extends Component {
       const {x, y, degrees} = b;
       b.y += 5;
       cxt.save();
-      cxt.translate(canvas.width/2,canvas.height/2);
+      cxt.translate(x-250/2,y-125/2);
       cxt.rotate(degrees*Math.PI/180);
-      cxt.drawImage(bill, x-250/2, y-250/2, 250, 125);
+      cxt.drawImage(bill, x-250/2, y-125/2, 250, 125);
       cxt.restore();
     });
   }

@@ -32,7 +32,7 @@ class Header extends Component {
         <div className="header__title">
           <a href="#">{title}</a>
         </div>
-        <ul className="header__menu" style={this.state.mobileMenu ? {display: "block"} : {}}>
+        <ul className={this.state.mobileMenu ? "header__menu header__show" : "header__menu"}>
           { items.map((li, i) => {
             return(
               <li key={i} className="header__menu__item">
