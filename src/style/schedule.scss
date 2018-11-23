@@ -33,6 +33,44 @@
       font-size: 1.5em;
       color: $white-text-color;
     }
+    &__apointment{
+      &__time{
+        font-size: 0.8em;
+        text-align: center;
+        color: $white-text-color;
+      }
+      &__name{
+        font-size: 1em;
+        text-align: center;
+        color: $white-text-color;
+      }
+      &__more-info{
+        width: 100%;
+        height: 100%;
+        background-color: $dark-text-color;
+        color: $white-text-color;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &:hover{
+          text-decoration: none;
+          color: $white-text-color;
+          background-color: $accent-color;
+        }
+      }
+      &__book{
+        font-size: 1.5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        color: $dark-text-color;
+      }
+    }
   }
   &__section-day-1:nth-child(2n){
     background-color: $white-text-color;

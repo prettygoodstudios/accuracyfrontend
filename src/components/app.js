@@ -13,7 +13,7 @@ export default class App extends Component {
       <div>
         <Header title="Accuracy" items={items}/>
         <CallToAction title="Our Precision & Accuracy" subtitle="Saves You $$$" />
-        <div class="container">
+        <div className="container">
           <p><span className="start-phrase">Our mission</span> is to save you time and money through our precise and accurate accounting services. We provide accounting services for small to medium sized companies. </p>
           <Services />
           <p><span className="start-phrase">Our story</span> we are a small accounting firm started by a couple of buds in Orem, UT.</p>

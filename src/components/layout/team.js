@@ -12,7 +12,7 @@ const Member = (props) => {
 }
 
 const Team = (props) => {
-  const teamMembers = [{name: "John Doe", title: "Acount Manager"}, {name: "Sam Smith", title: "Tax Consultant"}, {name: "Bryan Jones", title: "Payroll Specialist"}, {name: "Mike Taylor", title: "Chief Auditor"}];
+  const teamMembers = [{name: "John Doe", title: "Bookeeper"}, {name: "Sam Smith", title: "Tax Consultant"}, {name: "Bryan Jones", title: "Payroll Specialist"}, {name: "Mike Taylor", title: "Chief Auditor"}];
   return(
     <div>
       <p><span className="start-phrase">Our team</span> we have a skilled set of qualified friendly profesonials to meet your every need.</p>

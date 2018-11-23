@@ -1,0 +1,1 @@
+export {getAppointments} from "./schedule";

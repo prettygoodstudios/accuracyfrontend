@@ -57,7 +57,6 @@ class CallToAction extends Component {
     if(person.frameRate > 6){
       person.frameRate = 0;
       person.frame++;
-      console.log(person.frame);
       if(person.frame == person.frames.length){
         person.frame = 0;
       }
