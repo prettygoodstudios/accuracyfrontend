@@ -3,8 +3,10 @@ import {connect} from 'react-redux';
 
 import * as actions from "../../actions";
 
+import Modal from "../widgets/modal";
+
 const ScheduleSection = (props) => {
-  const {day, section, appointments, getApointment} = props;
+  const {day, section, appointments, getApointment, setApointment} = props;
   console.log(appointments);
   return(
     <div className={`schedule__section schedule__section-day-${section}`}>
@@ -22,7 +24,7 @@ const ScheduleSection = (props) => {
                 <span className="schedule__section__apointment__time">Click For More Info</span>
               </a>
               :
-              <a href="#" className="schedule__section__apointment__book">Book</a>
+              <a onClick={() => setApointment(i)} className="schedule__section__apointment__book">Book</a>
             }
           </div>
         )
@@ -41,13 +43,30 @@ class Schedule extends Component{
     alert(`It is day ${day} with ${member}`)
   }
 
+  setApointment = (day, member) => {
+    this.props.setAppointment(day, member);
+  }
+
   render(){
     const {appointments} = this.props;
-    const days = [appointments.slice(0,2), appointments.slice(2, 5)];
+    const days = [appointments.slice(0,3), appointments.slice(3, 5)];
     const staff = [{name: "John Doe"}, {name: "Sam Smith"}, {name: "Bryan Jones"}, {name: "Mike Taylor"}];
     return(
       <div>
         <p><span className="start-phrase">Our schedule</span> can be used to view and book free consulations for the current week with one of our friendly staff members.</p>
+        <Modal dismissModal={() => alert("Dismissing Modal")} submitModal={() => alert("Submitting")}>
+          <div className="set-appointment-modal">
+            <p>Fill out this form to book a free consultation.</p>
+            <label for="company">Company/Entity Name *</label>
+            <input type="text" id="company" name="company"/>
+            <label for="time">Select Time *</label>
+            <select name="time" id="time">
+              <option>11 AM</option>
+              <option>12 PM</option>
+              <option>1 PM</option>
+            </select>
+          </div>
+        </Modal>
         <div className="schedule">
           <div className="schedule__section schedule__staff">
             <div className="schedule__section__day">
@@ -62,7 +81,7 @@ class Schedule extends Component{
             })}
           </div>
           { days[0].map((d, i) => {
-            return <ScheduleSection day={d.day} getApointment={(m) => this.getApointment(i, m)} appointments={d.appointments} section="1" key={i}/>
+            return <ScheduleSection day={d.day} getApointment={(m) => this.getApointment(i, m)} setApointment={(m) => this.setApointment(i, m)} appointments={d.appointments} section="1" key={i}/>
           })
           }
           <div className="schedule__section schedule__staff schedule__staff-2">
@@ -78,7 +97,7 @@ class Schedule extends Component{
             })}
           </div>
           { days[1].map((d, i) => {
-            return <ScheduleSection day={d.day} getApointment={(m) => this.getApointment(i+3, m)} appointments={d.appointments} section="2" key={i}/>
+            return <ScheduleSection day={d.day} getApointment={(m) => this.getApointment(i+3, m)} setApointment={(m) => this.setApointment(i+3, m)} appointments={d.appointments} section="2" key={i}/>
           })
           }
         </div>
