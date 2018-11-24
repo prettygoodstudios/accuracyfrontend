@@ -5,6 +5,7 @@ import CallToAction from "./layout/callToAction";
 import Services from './layout/services';
 import Team from './layout/team';
 import Schedule from './layout/schedule';
+import Reviews from './layout/reviews';
 
 export default class App extends Component {
   render() {
@@ -19,6 +20,7 @@ export default class App extends Component {
           <p><span className="start-phrase">Our story</span> we are a small accounting firm started by a couple of buds in Orem, UT.</p>
           <Team />
           <Schedule />
+          <Reviews />
           <p>Vector Illustration by <a href="https://www.Vecteezy.com">www.vecteezy.com</a></p>
         </div>
       </div>

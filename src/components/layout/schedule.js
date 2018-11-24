@@ -24,7 +24,10 @@ const ScheduleSection = (props) => {
                 <span className="schedule__section__apointment__time">Click For More Info</span>
               </a>
               :
-              <a onClick={() => setApointment(i)} className="schedule__section__apointment__book">Book</a>
+              <a onClick={() => setApointment(i)} className="schedule__section__apointment__book">
+                <span className="schedule__section__apointment__book__title">Book</span>
+                <span className="schedule__section__apointment__book__description">Click To Book</span>
+              </a>
             }
           </div>
         )
