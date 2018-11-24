@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import {GET_APPOINTMENTS, SET_APPOINTMENT} from './types';
+import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT} from './types';
 import {firebaseKeys} from '../../apiKeys';
 
 
@@ -32,8 +32,27 @@ export const getAppointments = () => {
   }
 }
 
-export const getAppointment = () => {
+export const viewAppointment = (day, member) => {
+  return function(dispatch){
+    const myAppointmentReference = firebase.database().ref(`/appointments/${day}/appointments/${member}`);
+    myAppointmentReference.once("value").then((snapshot) => {
+      dispatch({
+        type: VIEW_APPOINTMENT,
+        payload: {...snapshot.toJSON(), visible: true}
+      });
+    });
+  }
+}
 
+export const hideAppointment = () => {
+  return {
+    type: HIDE_APPOINTMENT,
+    payload: {
+      name: "",
+      time: "",
+      visible: false
+    }
+  }
 }
 
 export const setAppointment = (day, member) => {
@@ -44,5 +63,33 @@ export const setAppointment = (day, member) => {
       member,
       visible: true
     }
+  }
+}
+
+export const clearAppointment = () => {
+  return{
+    type: CLEAR_APPOINTMENT,
+    payload: {
+      day: 0,
+      member: 0,
+      visible: false
+    }
+  }
+}
+
+export const uploadAppointment = (appointment) => {
+  return function(dispatch){
+    const {day, member, company, time} = appointment;
+    const myAppointmentReference = firebase.database().ref(`/appointments/${day}/appointments/${member}`);
+    const myAppointment = {
+      name: company,
+      time
+    }
+    myAppointmentReference.set(myAppointment).then(() => {
+      return appointmentsReference.once("value");
+    }).then((snapshot) => {
+      console.log("MY Data", Object.values(snapshot.toJSON()));
+      dispatch(getAppointments());
+    });
   }
 }

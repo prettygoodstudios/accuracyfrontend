@@ -94,3 +94,11 @@
   flex-direction: column;
   align-items: center;
 }
+.view-appointment-modal{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  p{
+    text-align: center;
+  }
+}
