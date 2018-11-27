@@ -9,7 +9,7 @@ import Reviews from './layout/reviews';
 
 export default class App extends Component {
   render() {
-    const items = [{title: "Services"}, {title: "Story"}, {title: "Team"}, {title: "Schedule"}, {title: "Reviews"}];
+    const items = [{title: "Services", element: "services"}, {title: "Story", element: "story"}, {title: "Team", element: "team"}, {title: "Schedule", element: "schedule"}, {title: "Reviews", element: "reviews"}];
     return (
       <div>
         <Header title="Accuracy" items={items}/>
@@ -17,7 +17,7 @@ export default class App extends Component {
         <div className="container">
           <p><span className="start-phrase">Our mission</span> is to save you time and money through our precise and accurate accounting services. We provide accounting services for small to medium sized companies. </p>
           <Services />
-          <p><span className="start-phrase">Our story</span> we are a small accounting firm started by a couple of buds in Orem, UT.</p>
+          <p id="story"><span className="start-phrase">Our story</span> we are a small accounting firm started by a couple of buds in Orem, UT.</p>
           <Team />
           <Schedule />
           <Reviews />

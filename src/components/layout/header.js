@@ -1,5 +1,16 @@
 import React, {Component} from 'react';
 
+function getOffset( el ) {
+    var _x = 0;
+    var _y = 0;
+    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+        _x += el.offsetLeft - el.scrollLeft;
+        _y += el.offsetTop - el.scrollTop;
+        el = el.offsetParent;
+    }
+    return { top: _y, left: _x };
+}
+
 class Header extends Component {
 
   constructor(){
@@ -19,6 +30,12 @@ class Header extends Component {
     });
   }
 
+  scrollTo = (id) => {
+    const element = document.getElementById(id);
+    console.log(element);
+    window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
+  }
+
   toggleMobileMenu = () => {
     this.setState({
       mobileMenu: !this.state.mobileMenu
@@ -36,7 +53,7 @@ class Header extends Component {
           { items.map((li, i) => {
             return(
               <li key={i} className="header__menu__item">
-                <a href="#">{li.title}</a>
+                <a onClick={() => this.scrollTo(li.element)}>{li.title}</a>
               </li>
             )
           })

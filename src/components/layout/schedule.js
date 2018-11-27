@@ -104,7 +104,7 @@ class Schedule extends Component{
     const days = [appointments.slice(0,3), appointments.slice(3, 5)];
     const staff = [{name: "John Doe"}, {name: "Sam Smith"}, {name: "Bryan Jones"}, {name: "Mike Taylor"}];
     return(
-      <div>
+      <div id="schedule">
         <p><span className="start-phrase">Our schedule</span> can be used to view and book free consulations for the current week with one of our friendly staff members.</p>
         { newAppointmentModal.visible &&
           <Modal dismissModal={() => this.clearAppointment()} submitModal={() => this.uploadAppointment()}>
