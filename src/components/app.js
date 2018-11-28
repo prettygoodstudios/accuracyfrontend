@@ -6,10 +6,11 @@ import Services from './layout/services';
 import Team from './layout/team';
 import Schedule from './layout/schedule';
 import Reviews from './layout/reviews';
+import Contact from './layout/contact';
 
 export default class App extends Component {
   render() {
-    const items = [{title: "Services", element: "services"}, {title: "Story", element: "story"}, {title: "Team", element: "team"}, {title: "Schedule", element: "schedule"}, {title: "Reviews", element: "reviews"}];
+    const items = [{title: "Services", element: "services"}, {title: "Story", element: "story"}, {title: "Team", element: "team"}, {title: "Schedule", element: "schedule"}, {title: "Reviews", element: "reviews"}, {title: "Contact", element: "contact"}];
     return (
       <div>
         <Header title="Accuracy" items={items}/>
@@ -21,6 +22,7 @@ export default class App extends Component {
           <Team />
           <Schedule />
           <Reviews />
+          <Contact />
           <p>Vector Illustration by <a href="https://www.Vecteezy.com">www.vecteezy.com</a></p>
         </div>
       </div>

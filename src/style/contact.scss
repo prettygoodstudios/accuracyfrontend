@@ -1,0 +1,69 @@
+.contact-wrapper{
+  padding: 20px;
+  width: 100%;
+  background-color: $white-text-color;
+  h1{
+    color: $dark-text-color;
+  }
+  &__section-wrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    &__tweet-section{
+      flex-basis: 40%;
+      h3{
+        color: $dark-text-color
+      }
+      textarea{
+        width: 100%;
+        resize: none;
+      }
+      a{
+        display: block;
+        background-color: $primary-color;
+        padding: 10px;
+        border-radius: 15px;
+        font-size: 20px;
+        margin: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        color: $white-text-color !important;
+        width: 80%;
+        &:hover{
+          background-color: $accent-color !important;
+        }
+      }
+    }
+    &__map-section{
+      flex-basis: 60%;
+      padding-left: 50px;
+      span{
+        display: block;
+        font-size: 20px;
+        color: $dark-text-color;
+        margin-bottom: 10px;
+      }
+      iframe{
+        height: 300px;
+        width: 100%;
+        border: none;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 570px){
+  .contact-wrapper{
+    &__section-wrapper{
+      flex-wrap: wrap;
+      &__map-section{
+        flex-basis: 100%;
+        padding-left: 0px;
+      }
+      &__tweet-section{
+        flex-basis: 100%;
+      }
+    }
+  }
+}
