@@ -7,6 +7,7 @@ import Team from './layout/team';
 import Schedule from './layout/schedule';
 import Reviews from './layout/reviews';
 import Contact from './layout/contact';
+import Footer from './layout/footer';
 
 export default class App extends Component {
   render() {
@@ -25,6 +26,7 @@ export default class App extends Component {
           <Contact />
           <p>Vector Illustration by <a href="https://www.Vecteezy.com">www.vecteezy.com</a></p>
         </div>
+        <Footer />
       </div>
     );
   }
