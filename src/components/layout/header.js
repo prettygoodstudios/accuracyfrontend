@@ -21,6 +21,15 @@ class Header extends Component {
   }
 
   componentDidMount(){
+    const id = window.location.href.split("=")[1];
+    if(id && id != ""){
+      window.setTimeout(() => {
+        const element = document.getElementById(id);
+        console.log(element);
+        window.location
+        window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
+      }, 500);
+    }
     window.addEventListener('resize', () => {
       if(window.innerWidth > 700){
         this.setState({
@@ -31,6 +40,11 @@ class Header extends Component {
   }
 
   scrollTo = (id) => {
+    const urlComponents = window.location.href.split("/");
+    const path = urlComponents[urlComponents.length-1];
+    if(path != "" && path.indexOf("=") == -1){
+      window.location = urlComponents.slice(0,urlComponents.length-1).join("/")+"?scroll="+id;
+    }
     const element = document.getElementById(id);
     console.log(element);
     window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
@@ -47,7 +61,7 @@ class Header extends Component {
     return(
       <div className="header">
         <div className="header__title">
-          <a href="#">{title}</a>
+          <a href="/">{title}</a>
         </div>
         <ul className={this.state.mobileMenu ? "header__menu header__show" : "header__menu"}>
           { items.map((li, i) => {

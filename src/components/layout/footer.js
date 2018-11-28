@@ -18,8 +18,8 @@ const Footer = (props) => {
       </div>
       <div className="footer__right-section">
         <h3>More Links</h3>
-        <a>FAQ</a>
-        <a>Legal</a>
+        <a href="/faq">FAQ</a>
+        <a href="/legal">Legal</a>
       </div>
     </div>
   );
