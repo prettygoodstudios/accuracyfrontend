@@ -73,7 +73,7 @@
           padding: 20px;
           color: $dark-text-color !important;
           &:hover{
-            color: $white-text-color;
+            color: $white-text-color !important;
             background-color: $dark-text-color;
           }
         }

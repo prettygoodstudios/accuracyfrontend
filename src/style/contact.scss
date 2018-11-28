@@ -11,12 +11,21 @@
     width: 100%;
     &__tweet-section{
       flex-basis: 40%;
-      h3{
-        color: $dark-text-color
+      span{
+        display: block;
+        font-size: 20px;
+        color: $dark-text-color;
+        margin-bottom: 10px;
       }
       textarea{
         width: 100%;
         resize: none;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid $dark-text-color;
+        &:focus{
+          outline: none;
+        }
       }
       a{
         display: block;
@@ -66,4 +75,9 @@
       }
     }
   }
+}
+
+.contact-modal{
+  width: 100%;
+  text-align: center;
 }
