@@ -1,7 +1,19 @@
+require("dotenv").config();
 const path = require('path');
 const webpackMerge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const webpackCommon = require('./common.config');
+
+
+const {apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId} = process.env;
+const firebaseKeys = {
+  apiKey,
+  authDomain,
+  databaseURL,
+  projectId,
+  storageBucket,
+  messagingSenderId
+}
 
 // webpack plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -100,7 +112,8 @@ module.exports = webpackMerge(webpackCommon, {
     }),
     new DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: '"production"',
+        ...firebaseKeys
       }
     }),
     new ExtractTextPlugin('[name]-[chunkhash].min.css'),
