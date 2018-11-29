@@ -1,8 +1,8 @@
 import firebase from 'firebase';
 
 import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT} from './types';
-import {firebaseKeys} from '../../apiKeys';
-
+//import {firebaseKeys} from '../../apiKeys';
+const firebaseKeys = {};
 
 firebase.initializeApp(firebaseKeys);
 
