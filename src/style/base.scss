@@ -30,6 +30,19 @@ html, body {
   font-size: 2em;
 }
 
+.large-icon{
+  font-size: 8em;
+  color: $dark-text-color;
+}
+
+.large-icon-well{
+  margin: 20px 0px 20px 0px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: row;
+}
+
 table{
   width: 100%;
   margin-bottom: 20px;

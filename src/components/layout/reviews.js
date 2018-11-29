@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Reviews extends Component {
   render(){
-    const reviews = [{client: "The Toyota Motor Company", message: "We love working with accuracy they make running our business a breeze"}, {client: "JP Morgan Chase", message: "Even though we are a financial powerhouse they make our lives easier."}]
+    const reviews = [{client: "Joe's Mechanic Shop", message: "We love working with accuracy they make running our business a breeze."}, {client: "Mike's Barber Shop", message: "They generated valuable annual reports which guided our business to record setting sales."}]
     return(
       <div id="reviews">
         <p><span className="start-phrase">Our reviews</span> we are highly regarded by the vast majority of our clients. Here is a collection of some of their opinions.</p>
