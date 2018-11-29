@@ -1,7 +1,6 @@
 import firebase from 'firebase';
 import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT} from './types';
 
-console.log(process.env.toString());
 const firebaseKeys = {
   ...process.env
 };
