@@ -6,9 +6,9 @@ const Footer = (props) => {
       <div className="footer__left-section">
         <h1>Accuracy</h1>
         <div className="footer__left-section__social">
-          <a href="http://www.twitter.com/share?url=http://www.google.com/"><i class="fab fa-twitter"></i></a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//google.com"><i class="fab fa-facebook"></i></a>
-          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//google.com&title=Accuracy%20Accounting&summary=&source="><i class="fab fa-linkedin"></i></a>
+          <a href="http://www.twitter.com/share?url=http://www.accuracy-accounting.herokuapp.com/"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//accuracy-accounting.herokuapp.com"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//accuracy-accounting.herokuapp.com&title=Accuracy%20Accounting&summary=&source="><i class="fab fa-linkedin"></i></a>
         </div>
       </div>
       <div className="footer__middle-section">

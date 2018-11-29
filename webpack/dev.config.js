@@ -1,7 +1,6 @@
 const path = require('path');
 const webpackMerge = require('webpack-merge');
 const webpackCommon = require('./common.config');
-
 const env = require('../env');
 const proxyRules = require('../proxy/rules');
 
@@ -60,7 +59,8 @@ module.exports = webpackMerge(webpackCommon, {
   plugins: [
     new DefinePlugin({
       'process.env': {
-        NODE_ENV: "'development'"
+        NODE_ENV: "'development'",
+        ...env.firebase
       }
     }),
     new HtmlWebpackPlugin({
