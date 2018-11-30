@@ -3,11 +3,13 @@ $primary-color: #D64541;
 $white-text-color: #ECECEC;
 $accent-color: #96281b;
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family: "Avenir";
+  font-family: 'Open Sans', sans-serif;
   color: $dark-text-color;
 }
 
