@@ -44,7 +44,6 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.1.18",
-    "bootstrap": "^4.0.0-alpha.5",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.1",

@@ -11,7 +11,17 @@ html, body {
   color: $dark-text-color;
 }
 
+h1, h2,  h3, h4{
+  font-weight: 500;
+}
+
+a{
+  text-decoration: none;
+}
+
+
 .container{
+  margin-top: 20px;
   padding: 20px;
   margin-left: auto;
   margin-right: auto;

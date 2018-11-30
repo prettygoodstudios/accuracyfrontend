@@ -1,6 +1,5 @@
 .contact-wrapper{
   padding: 20px;
-  width: 100%;
   background-color: $white-text-color;
   h1{
     color: $dark-text-color;
@@ -18,7 +17,7 @@
         margin-bottom: 10px;
       }
       textarea{
-        width: 100%;
+        width: calc(100% - 20px);
         resize: none;
         padding: 10px;
         border-radius: 10px;

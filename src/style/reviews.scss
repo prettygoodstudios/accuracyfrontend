@@ -1,7 +1,6 @@
 .reviews-wrapper{
   &__review{
     color: $dark-text-color;
-    width: 100%;
     margin-bottom: 20px;
     &__client{
       font-size: 1.5em;
@@ -13,7 +12,6 @@
       border: 2px solid $dark-text-color;
       display: block;
       position: relative;
-      width: 100%;
       &__carot{
         position: absolute;
         top: 50%;

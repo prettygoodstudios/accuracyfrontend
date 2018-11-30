@@ -19,6 +19,7 @@
       height: 100%;
       padding: 0px 20px 0px 20px;
       color: $white-text-color;
+      text-decoration: none;
       &:hover{
         text-decoration: none;
         background-color: $accent-color;
@@ -30,6 +31,7 @@
     list-style: none;
     height: 100%;
     padding-left: 0px;
+    margin: 0px;
     &__item{
       display: inline-flex;
       height: 100%;
@@ -90,6 +92,8 @@
         background-color: transparent;
         border: 1px solid $white-text-color;
         color: $white-text-color;
+        padding: 10px;
+        font-size: 1.05em;
         &:hover{
           background-color: $accent-color;
         }
