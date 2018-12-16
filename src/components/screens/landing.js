@@ -11,7 +11,7 @@ const LandingPage = (props) => {
   const items = [{title: "Services", element: "services"}, {title: "Story", element: "story"}, {title: "Team", element: "team"}, {title: "Schedule", element: "schedule"}, {title: "Reviews", element: "reviews"}, {title: "Contact", element: "contact"}];
   return (
     <div>
-      <CallToAction title="Our Precision & Accuracy" subtitle="Saves You $$$" />
+      <CallToAction title="Our Precision & Accuracy" subtitle={<span className="call-to-action__title-wrapper__subtitle"><span>Saves You</span><span className="call-to-action__title-wrapper__subtitle__space">&nbsp;</span><img src="https://s3-us-west-2.amazonaws.com/staticgeofocus/Bill.png" /></span>} />
       <div className="container">
         <p><span className="start-phrase">Our mission</span> is to save you time and money through our precise and accurate accounting services. We provide accounting services for small to medium sized companies. </p>
         <div className="large-icon-well">

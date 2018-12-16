@@ -9,13 +9,15 @@ import FAQ from './screens/faq';
 import Legal from './screens/legal';
 
 
+
 export default class App extends Component {
+
   render() {
     const items = [{title: "Services", element: "services"}, {title: "Story", element: "story"}, {title: "Team", element: "team"}, {title: "Schedule", element: "schedule"}, {title: "Reviews", element: "reviews"}, {title: "Contact", element: "contact"}];
     return (
       <div>
         <div className="push">
-          <Header title="Accuracy" items={items}/>
+          <Header title={<img src="https://s3-us-west-2.amazonaws.com/staticgeofocus/textLogo.png" className="header__title__image"/>} items={items}/>
           <Router>
             <Switch>
               <Route exact path="/" component={LandingPage}/>

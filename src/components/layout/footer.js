@@ -4,7 +4,7 @@ const Footer = (props) => {
   return(
     <div className="footer">
       <div className="footer__left-section">
-        <h1>Accuracy</h1>
+        <img src="https://s3-us-west-2.amazonaws.com/staticgeofocus/textLogo.png" className="footer__left-section__title"/>
         <div className="footer__left-section__social">
           <a href="http://www.twitter.com/share?url=http://www.accuracy-accounting.herokuapp.com/"><i class="fab fa-twitter"></i></a>
           <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//accuracy-accounting.herokuapp.com"><i class="fab fa-facebook"></i></a>

@@ -11,6 +11,9 @@
   background-color: $primary-color;
   &__title{
     height: 100%;
+    &__image{
+      width: 150px;
+    }
     a{
       font-size: 2em;
       display: flex;
@@ -56,7 +59,7 @@
   }
 }
 
-@media only screen and (max-width: 750px){
+@media only screen and (max-width: 760px){
   .header{
     &__show{
       left: 0px !important;

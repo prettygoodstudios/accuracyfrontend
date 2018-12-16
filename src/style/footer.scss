@@ -10,6 +10,10 @@
     h1{
       color: $white-text-color
     }
+    &__title{
+      margin: 20px 0px 20px 0px;
+      width: 150px;
+    }
     &__social{
       display: flex;
       flex-direction: row;
