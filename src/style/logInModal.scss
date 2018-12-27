@@ -1,0 +1,28 @@
+.log-in-modal{
+  color: $dark-text-color;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+  h1{
+    width: 100%;
+    text-align: center;
+  }
+  p{
+    width: 100%;
+    text-align: center;
+    line-height: 2em;
+  }
+  label{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  input{
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid $dark-text-color;
+  }
+}

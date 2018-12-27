@@ -7,6 +7,7 @@ import Footer from './layout/footer';
 import LandingPage from "./screens/landing";
 import FAQ from './screens/faq';
 import Legal from './screens/legal';
+import LogInModal from './layout/logInModal';
 
 
 
@@ -26,6 +27,7 @@ export default class App extends Component {
             </Switch>
           </Router>
         </div>
+        <LogInModal/>
         <Footer />
       </div>
     );

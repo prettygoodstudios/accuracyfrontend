@@ -3,3 +3,6 @@ export const SET_APPOINTMENT = 'SET_APPOINTMENT';
 export const CLEAR_APPOINTMENT = 'CLEAR_APPOINTMENT';
 export const VIEW_APPOINTMENT = 'VIEW_APPOINTMENT';
 export const HIDE_APPOINTMENT = 'HIDE_APPOINTMENT';
+export const LOG_IN = 'LOG_IN';
+export const LOG_IN_MODAL = 'LOG_IN_MODAL';
+export const LOG_OUT = 'LOG_OUT';
