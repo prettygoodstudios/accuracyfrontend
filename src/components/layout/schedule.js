@@ -50,7 +50,7 @@ class Schedule extends Component{
 
   componentDidMount(){
     this.props.getAppointments();
-    this.props.getStaff(() => console.log("success"), () => console.log("error"));
+    this.props.getStaff(() => this.props.setScroll(), () => this.props.setScroll());
   }
 
   getApointment = (appointment) => {
