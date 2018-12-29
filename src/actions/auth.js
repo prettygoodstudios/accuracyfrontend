@@ -1,4 +1,4 @@
-import {LOG_IN, LOG_IN_MODAL, LOG_OUT} from "./types";
+import {LOG_IN, LOG_IN_MODAL, LOG_OUT, GET_USER} from "./types";
 import {generateUrl} from "./urlHelpers";
 import axios from "axios";
 
@@ -17,7 +17,25 @@ export const logIn = (email, password, success, error) => {
           type: LOG_IN,
           payload: data
         });
-        success(data);
+        dispatch(getUser(data.token, success, error));
+      }else{
+        error(data.error);
+      }
+    }).catch((e) => {
+      error(e);
+    });
+  }
+}
+
+export const getUser = (token, success, error) => {
+  return function(dispatch){
+    axios.get(generateUrl('/users', {token})).then(({data}) => {
+      if(!data.error){
+        dispatch({
+          type: GET_USER,
+          payload: data
+        });
+        success();
       }else{
         error(data.error);
       }

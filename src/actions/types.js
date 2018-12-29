@@ -6,3 +6,5 @@ export const HIDE_APPOINTMENT = 'HIDE_APPOINTMENT';
 export const LOG_IN = 'LOG_IN';
 export const LOG_IN_MODAL = 'LOG_IN_MODAL';
 export const LOG_OUT = 'LOG_OUT';
+export const GET_USER = 'GET_USER';
+export const GET_STAFF = 'GET_STAFF';

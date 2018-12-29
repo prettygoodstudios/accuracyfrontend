@@ -1,2 +1,2 @@
-export {getAppointments, setAppointment, clearAppointment, uploadAppointment, viewAppointment, hideAppointment} from "./schedule";
-export {logIn, logInModal, logOut} from "./auth.js";
+export {getAppointments, setAppointment, clearAppointment, uploadAppointment, viewAppointment, hideAppointment, getStaff} from "./schedule";
+export {logIn, logInModal, logOut, getUser} from "./auth.js";

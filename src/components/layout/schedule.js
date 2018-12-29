@@ -6,31 +6,33 @@ import * as actions from "../../actions";
 import Modal from "../widgets/modal";
 
 const ScheduleSection = (props) => {
-  const {day, section, appointments, getApointment, setApointment} = props;
-  console.log(appointments);
+  const {day, section, appointments, getApointment, setApointment, staff} = props;
+  console.log(appointments, staff);
   return(
     <div className={`schedule__section schedule__section-day-${section}`}>
       <div className="schedule__section__day">
       {day}
       </div>
-      { Object.values(appointments).map((a, i) => {
-        const {name, time} = a;
-        return (
-          <div className="schedule__section__apointment" key={i}>
-            { a.name ?
-              <a onClick={() => getApointment(i)} className="schedule__section__apointment__more-info">
+      { staff.map((s, i) => {
+        if(appointments[s.id]){
+          const {name, time} = appointments[s.id];
+          return (
+            <div className="schedule__section__apointment" key={i}>
+              <a onClick={() => getApointment({name, time})} className="schedule__section__apointment__more-info">
                 <span className="schedule__section__apointment__name">{name}</span>
                 <span className="schedule__section__apointment__time">{time}</span>
                 <span className="schedule__section__apointment__time">Click For More Info</span>
               </a>
-              :
-              <a onClick={() => setApointment(i)} className="schedule__section__apointment__book">
-                <span className="schedule__section__apointment__book__title">Book</span>
-                <span className="schedule__section__apointment__book__description">Click To Book</span>
-              </a>
-            }
-          </div>
-        )
+            </div>
+          );
+        }else{
+          return(
+            <a onClick={() => setApointment(s.id)} className="schedule__section__apointment__book">
+              <span className="schedule__section__apointment__book__title">Book</span>
+              <span className="schedule__section__apointment__book__description">Click To Book</span>
+            </a>
+          );
+        }
       })}
     </div>
   );
@@ -48,14 +50,21 @@ class Schedule extends Component{
 
   componentDidMount(){
     this.props.getAppointments();
+    this.props.getStaff(() => console.log("success"), () => console.log("error"));
   }
 
-  getApointment = (day, member) => {
-    this.props.viewAppointment(day, member);
+  getApointment = (appointment) => {
+    console.log("Viewing Appointment", appointment);
+    this.props.viewAppointment(appointment);
   }
+
 
   setApointment = (day, member) => {
-    this.props.setAppointment(day, member);
+    if(this.props.session == ""){
+      this.props.logInModal(true);
+    }else{
+      this.props.setAppointment(day, member);
+    }
   }
 
   clearAppointment = () => {
@@ -91,7 +100,7 @@ class Schedule extends Component{
       company: appointmentCompany
     }
     if(appointmentCompany != "" && appointmentTime != ""){
-      this.props.uploadAppointment(myAppointment);
+      this.props.uploadAppointment(myAppointment, this.props.session, () => alert("It worked bro!"), (e) => alert("It failed", e));
       this.clearAppointment();
     }else{
       alert("You must enter in a company/entity name and time.");
@@ -99,10 +108,10 @@ class Schedule extends Component{
   }
 
   render(){
-    const {appointments, newAppointmentModal, clearAppointment, viewAppointmentModal, hideAppointment} = this.props;
+    const {appointments, newAppointmentModal, clearAppointment, viewAppointmentModal, hideAppointment, staff} = this.props;
     const {appointmentCompany, appointmentTime} = this.state;
     const days = [appointments.slice(0,3), appointments.slice(3, 5)];
-    const staff = [{name: "John Doe"}, {name: "Sam Smith"}, {name: "Bryan Jones"}, {name: "Mike Taylor"}];
+    //const staff = [{name: "John Doe"}, {name: "Sam Smith"}, {name: "Bryan Jones"}, {name: "Mike Taylor"}];
     return(
       <div id="schedule">
         <p><span className="start-phrase">Our schedule</span> can be used to view and book free consulations for the current week with one of our friendly staff members.</p>
@@ -141,8 +150,8 @@ class Schedule extends Component{
               )
             })}
           </div>
-          { days[0].map((d, i) => {
-            return <ScheduleSection day={d.day} getApointment={(m) => this.getApointment(i, m)} setApointment={(m) => this.setApointment(i, m)} appointments={d.appointments} section="1" key={i}/>
+          { staff && days[0].map((d, i) => {
+            return <ScheduleSection staff={staff} day={d.day} getApointment={(m) => this.getApointment(m)} setApointment={(m) => this.setApointment(i, m)} appointments={d.appointments} section="1" key={i}/>
           })
           }
           <div className="schedule__section schedule__staff schedule__staff-2">
@@ -157,8 +166,8 @@ class Schedule extends Component{
               )
             })}
           </div>
-          { days[1].map((d, i) => {
-            return <ScheduleSection day={d.day} getApointment={(m) => this.getApointment(i+3, m)} setApointment={(m) => this.setApointment(i+3, m)} appointments={d.appointments} section="2" key={i}/>
+          { staff && days[1].map((d, i) => {
+            return <ScheduleSection day={d.day} staff={staff} getApointment={(m) => this.getApointment(m)} setApointment={(m) => this.setApointment(i+3, m)} appointments={d.appointments} section="2" key={i}/>
           })
           }
         </div>
@@ -168,11 +177,14 @@ class Schedule extends Component{
 }
 
 function mapStateToProps(state) {
-  const {appointments, newAppointmentModal, viewAppointmentModal} = state.schedule;
+  const {appointments, newAppointmentModal, viewAppointmentModal, staff} = state.schedule;
+  const {session} = state.auth;
   return{
     appointments,
     newAppointmentModal,
-    viewAppointmentModal
+    viewAppointmentModal,
+    staff,
+    session
   }
 }
 

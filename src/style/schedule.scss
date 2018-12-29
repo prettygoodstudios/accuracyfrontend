@@ -23,7 +23,7 @@
   &__section{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 100px 100px 100px 100px 100px;
+    grid-template-rows: repeat(5, 100px);
     &__day{
       background-color: $primary-color;
       display: flex;

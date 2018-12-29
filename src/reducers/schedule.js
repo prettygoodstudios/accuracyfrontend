@@ -1,4 +1,4 @@
-import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT} from "../actions/types";
+import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF} from "../actions/types";
 
 const INIT_STATE = {
   appointments: [{day: "Mon", appointments: [{}, {}, {}, {}]}, {day: "Tues", appointments: [{}, {}, {}, {}]}, {day: "Wed", appointments: [{}, {}, {}, {}]}, {day: "Thu", appointments: [{}, {}, {}, {}]}, {day: "Fri", appointments: [{}, {}, {}, {}]}],
@@ -11,7 +11,8 @@ const INIT_STATE = {
     name: "",
     time: "",
     visible: false
-  }
+  },
+  staff: []
 }
 
 export default function(state = INIT_STATE, action){
@@ -32,6 +33,11 @@ export default function(state = INIT_STATE, action){
       return{
         ...state,
         viewAppointmentModal: action.payload
+      }
+    case GET_STAFF:
+      return{
+        ...state,
+        staff: action.payload
       }
     default:
       return {
