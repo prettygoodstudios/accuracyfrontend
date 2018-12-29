@@ -25,7 +25,7 @@ const parseAppointments = (data) => {
   const formattedAppointments = currenAppointments.map((a) => {
     const timeStamp = new Date(a.time);
     const day = days[(timeStamp.getDay() - 1)];
-    const time = timeStamp.getHours() % 12 + (timeStamp.getHours()/12 >= 1 ? "PM" : "AM");
+    const time = timeStamp.getHours() % 12 + (timeStamp.getHours()/12 == 1 ? 12 : 0) + (timeStamp.getHours()/12 >= 1 ? "PM" : "AM");
     console.log("Times", time);
     return {name: "Booked!", time, day, staff: a.staff_id, user: a.user_id};
   }).filter((a) => a.day);
@@ -118,9 +118,9 @@ export const uploadAppointment = (appointment, token, success, error) => {
   return function(dispatch){
     const {day, member, company, time} = appointment;
     const dayDiff = (day+1)-new Date().getDay();
-    const hourDiff = parseInt(time.split('PM')[0].split('AM')[0].trim())-new Date().getHours() + (time.indexOf('PM') != -1 ? 12 : 0) + (time.indexOf('12 PM') != -1 ? -12 : 0);
+    const hourDiff = parseInt(time.split('PM')[0].split('AM')[0].trim())- new Date().getHours() % 12 + (time.indexOf('PM') != -1 ? 12 : 0) + (time.indexOf('12 PM') != -1 ? -12 : 0);
     const minuteDiff = new Date().getMinutes();
-    const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60; 
+    const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60 - new Date().getTimezoneOffset()*60*1000; 
     console.log("My Date Diffs", dayDiff, hourDiff, minuteDiff, myDate);
     axios.post(generateUrl('/appointments', {token, time: new Date(myDate).toISOString().slice(0, 19).replace('T', ' '), company, staff_id: member})).then(({data}) => {
       if(!data.error){

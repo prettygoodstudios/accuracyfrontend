@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 function getOffset( el ) {
     var _x = 0;
@@ -10,6 +11,8 @@ function getOffset( el ) {
     }
     return { top: _y, left: _x };
 }
+
+
 
 class Header extends Component {
 
@@ -23,12 +26,7 @@ class Header extends Component {
   componentDidMount(){
     const id = window.location.href.split("=")[1];
     if(id && id != ""){
-      window.setTimeout(() => {
-        const element = document.getElementById(id);
-        console.log(element);
-        window.location
-        window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
-      }, 500);
+      this.scrolling(id);
     }
     window.addEventListener('resize', () => {
       if(window.innerWidth > 700){
@@ -37,6 +35,20 @@ class Header extends Component {
         });
       }
     });
+  }
+
+  scrolling = async (id) => {
+    console.log("Staff Length", this.props.staff.length);
+    const element = document.getElementById(id);
+    console.log(element);
+    let set = false;
+    const scrolling = () => {
+      if(this.props.staff.length != 0 && !set){
+        set = true;
+        window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
+      }
+    }
+    window.setTimeout(scrolling, 1500);
   }
 
   scrollTo = (id) => {
@@ -81,4 +93,12 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps(state){
+  const {staff, appointments} = state.schedule;
+  return{
+    staff,
+    appointments
+  }
+}
+
+export default connect(mapStateToProps, null)(Header);

@@ -1,4 +1,7 @@
-import React from "react";
+import React, {Component} from "react";
+import {connect} from 'react-redux';
+
+import * as actions from "../../actions";
 
 const Member = (props) => {
   const {title, name} = props;
@@ -11,19 +14,28 @@ const Member = (props) => {
   );
 }
 
-const Team = (props) => {
-  const teamMembers = [{name: "John Doe", title: "Bookeeper"}, {name: "Sam Smith", title: "Tax Consultant"}, {name: "Bryan Jones", title: "Payroll Specialist"}, {name: "Mike Taylor", title: "Chief Auditor"}];
-  return(
-    <div id="team">
-      <p><span className="start-phrase">Our team</span> we have a skilled set of qualified friendly profesonials to meet your every need.</p>
-      <div className="team-wrapper">
-        {teamMembers.map((m, i) => {
-          const {name, title} = m
-          return <Member name={name} title={title}  key={i}/>
-        })}
+class Team extends Component{
+  render() {
+    const teamMembers = this.props.staff;
+    return(
+      <div id="team">
+        <p><span className="start-phrase">Our team</span> we have a skilled set of qualified friendly profesonials to meet your every need.</p>
+        <div className="team-wrapper">
+          {teamMembers && teamMembers.map((m, i) => {
+            const {name, job_title} = m
+            return <Member name={name} title={job_title}  key={i}/>
+          })}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-export default Team;
+function mapStateToProps(state){
+  const {staff} = state.schedule;
+  return{
+    staff
+  }
+}
+
+export default connect(mapStateToProps, actions)(Team);
