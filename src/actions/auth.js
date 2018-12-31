@@ -2,6 +2,8 @@ import {LOG_IN, LOG_IN_MODAL, LOG_OUT, GET_USER} from "./types";
 import {generateUrl} from "./urlHelpers";
 import axios from "axios";
 
+import {getMyAppointments} from "./schedule";
+
 export const logInModal = (show) => {
   return {
     type: LOG_IN_MODAL,
@@ -17,7 +19,7 @@ export const logIn = (email, password, success, error) => {
           type: LOG_IN,
           payload: data
         });
-        dispatch(getUser(data.token, success, error));
+        dispatch(getUser(data.token, () => dispatch(getMyAppointments(data.token, success, error)), error));
       }else{
         error(data.error);
       }

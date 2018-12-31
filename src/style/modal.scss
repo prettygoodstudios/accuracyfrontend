@@ -17,9 +17,8 @@
   background-color: $white-text-color;
   left: 100px;
   right: 100px;
-  top: 200px;
-  bottom: auto;
-  height: auto;
+  top: 50%;
+  transform: translateY(-50%);
   &__actions{
     display: flex;
     flex-direction: row;

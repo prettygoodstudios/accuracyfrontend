@@ -11,11 +11,13 @@ function getOffset( el ) {
 }
 
 export const setScroll = () => {
-    const id = window.location.href.split("=")[1];
-    if(id && id != ""){
-      this.scrolling(id);
+    return function(dispatch){
+        const id = window.location.href.split("=")[1];
+        if(id && id != ""){
+        this.scrolling(id);
+        }
+        const element = document.getElementById(id);
+        console.log(element);
+        window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
     }
-    const element = document.getElementById(id);
-    console.log(element);
-    window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
 }

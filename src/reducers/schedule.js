@@ -1,4 +1,4 @@
-import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF} from "../actions/types";
+import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS} from "../actions/types";
 
 const INIT_STATE = {
   appointments: [{day: "Mon", appointments: [{}, {}, {}, {}]}, {day: "Tues", appointments: [{}, {}, {}, {}]}, {day: "Wed", appointments: [{}, {}, {}, {}]}, {day: "Thu", appointments: [{}, {}, {}, {}]}, {day: "Fri", appointments: [{}, {}, {}, {}]}],
@@ -17,6 +17,7 @@ const INIT_STATE = {
 
 export default function(state = INIT_STATE, action){
   switch (action.type) {
+    case GET_MY_APPOINTMENTS:
     case GET_APPOINTMENTS:
       return{
         ...state,

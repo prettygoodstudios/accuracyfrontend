@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import axios from 'axios';
-import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF} from './types';
+import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS} from './types';
 import {generateUrl} from "./urlHelpers";
 
 const firebaseKeys = {
@@ -18,7 +18,6 @@ const parseAppointments = (data) => {
     const time = new Date(a.time);
     const diff = new Date() - new Date(a.time);
     const days = diff/(1000*60*60*24);
-    console.log("Days", days);
     return days < 7;
   });
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -26,8 +25,7 @@ const parseAppointments = (data) => {
     const timeStamp = new Date(a.time);
     const day = days[(timeStamp.getDay() - 1)];
     const time = timeStamp.getHours() % 12 + (timeStamp.getHours()/12 == 1 ? 12 : 0) + (timeStamp.getHours()/12 >= 1 ? "PM" : "AM");
-    console.log("Times", time);
-    return {name: "Booked!", time, day, staff: a.staff_id, user: a.user_id};
+    return {name: (a.name ? a.name : "Booked!"), time, day, staff: a.staff_id, user: a.user_id};
   }).filter((a) => a.day);
   let week = [];
 
@@ -55,6 +53,25 @@ export const getAppointments = () => {
   }
 }
 
+export const getMyAppointments = (token, success, error) => {
+  return function(dispatch){
+    axios.get(generateUrl('/appointments/mine', {token})).then(({data}) => {
+      if(!data.error){
+        const week = parseAppointments(data);
+        dispatch({
+          type: GET_MY_APPOINTMENTS,
+          payload: week
+        });
+        success();
+      }else{
+        error(e);
+      }
+    }).catch((e) => {
+      error(e);
+    });
+  }
+}
+
 export const getStaff = (success, error) => {
   return function(dispatch){
     axios.get(generateUrl('/staff', {})).then(({data}) => {
@@ -74,7 +91,6 @@ export const getStaff = (success, error) => {
 }
 
 export const viewAppointment = (appointment) => {
-  console.log("My Appointment", appointment);
   return{
     type: VIEW_APPOINTMENT,
     payload: {...appointment, visible: true}
@@ -121,7 +137,6 @@ export const uploadAppointment = (appointment, token, success, error) => {
     const hourDiff = parseInt(time.split('PM')[0].split('AM')[0].trim())- new Date().getHours() % 12 + (time.indexOf('PM') != -1 ? 12 : 0) + (time.indexOf('12 PM') != -1 ? -12 : 0);
     const minuteDiff = new Date().getMinutes();
     const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60 - new Date().getTimezoneOffset()*60*1000; 
-    console.log("My Date Diffs", dayDiff, hourDiff, minuteDiff, myDate);
     axios.post(generateUrl('/appointments', {token, time: new Date(myDate).toISOString().slice(0, 19).replace('T', ' '), company, staff_id: member})).then(({data}) => {
       if(!data.error){
         dispatch({
