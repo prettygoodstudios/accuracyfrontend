@@ -13,8 +13,7 @@ const ScheduleSection = (props) => {
       {day}
       </div>
       { staff.map((s, i) => {
-        console.log(user.id, appointments[s.id], "USer stuff");
-        if(appointments[s.id] && (appointments[s.id].user === user.id || user.role === "admin") && user != undefined){
+        if(appointments[s.id] && user.id && (appointments[s.id].user === user.id || user.role === "admin")){
           const {name, time} = appointments[s.id];
           return(
             <div className="schedule__section__apointment" key={i}>
@@ -129,6 +128,7 @@ class Schedule extends Component{
               <input type="text" id="company" name="company" value={appointmentCompany} onChange={(t) => this.updateInput("company", t)}/>
               <label for="time">Select Time *</label>
               <select name="time" id="time" value={appointmentTime} onChange={(t) => this.updateInput("time", t)}>
+                <option value="" disabled selected>Select a Time</option>
                 <option>11 AM</option>
                 <option>12 PM</option>
                 <option>1 PM</option>
