@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import axios from 'axios';
-import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS} from './types';
+import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS, CREATE_STAFF} from './types';
 import {generateUrl} from "./urlHelpers";
 
 const firebaseKeys = {
@@ -143,6 +143,25 @@ export const uploadAppointment = (appointment, token, success, error) => {
         dispatch({
           type: GET_APPOINTMENTS,
           payload: parseAppointments(data)
+        });
+        success();
+      }else{
+        error(data.error);
+      }
+    }).catch((e) => {
+      error(e);
+    });
+  }
+}
+
+
+export const createStaff = (params, success, error) => {
+  return function(dispatch){
+    axios.post(generateUrl('/staff', params)).then(({data}) => {
+      if(!data.error){
+        dispatch({
+          type: CREATE_STAFF,
+          payload: data
         });
         success();
       }else{

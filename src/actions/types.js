@@ -9,3 +9,4 @@ export const LOG_OUT = 'LOG_OUT';
 export const GET_USER = 'GET_USER';
 export const GET_STAFF = 'GET_STAFF';
 export const GET_MY_APPOINTMENTS = 'GET_MY_APPOINTMENTS';
+export const CREATE_STAFF = 'CREATE_STAFF';
