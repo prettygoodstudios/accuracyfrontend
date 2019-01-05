@@ -10,3 +10,5 @@ export const GET_USER = 'GET_USER';
 export const GET_STAFF = 'GET_STAFF';
 export const GET_MY_APPOINTMENTS = 'GET_MY_APPOINTMENTS';
 export const CREATE_STAFF = 'CREATE_STAFF';
+export const EDIT_STAFF = 'EDIT_STAFF';
+export const DELETE_STAFF = 'DELETE_STAFF';

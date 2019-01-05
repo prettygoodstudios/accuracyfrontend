@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import axios from 'axios';
-import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS, CREATE_STAFF} from './types';
+import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS, CREATE_STAFF, EDIT_STAFF, DELETE_STAFF} from './types';
 import {generateUrl} from "./urlHelpers";
 
 const firebaseKeys = {
@@ -161,6 +161,42 @@ export const createStaff = (params, success, error) => {
       if(!data.error){
         dispatch({
           type: CREATE_STAFF,
+          payload: data
+        });
+        success();
+      }else{
+        error(data.error);
+      }
+    }).catch((e) => {
+      error(e);
+    });
+  }
+}
+
+export const editStaff = (params, success, error) => {
+  return function(dispatch){
+    axios.post(generateUrl('/staff/edit', params)).then(({data}) => {
+      if(!data.error){
+        dispatch({
+          type: EDIT_STAFF,
+          payload: data
+        });
+        success();
+      }else{
+        error(data.error);
+      }
+    }).catch((e) => {
+      error(e);
+    });
+  }
+}
+
+export const deleteStaff = (params, success, error) => {
+  return function(dispatch){
+    axios.post(generateUrl('/staff/delete', params)).then(({data}) => {
+      if(!data.error){
+        dispatch({
+          type: DELETE_STAFF,
           payload: data
         });
         success();
