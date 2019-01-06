@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import axios from 'axios';
-import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS, CREATE_STAFF, EDIT_STAFF, DELETE_STAFF} from './types';
+import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS, CREATE_STAFF, EDIT_STAFF, DELETE_STAFF, DELETE_APPOINTMENT} from './types';
 import {generateUrl} from "./urlHelpers";
 
 const firebaseKeys = {
@@ -25,7 +25,7 @@ const parseAppointments = (data) => {
     const timeStamp = new Date(a.time);
     const day = days[(timeStamp.getDay() - 1)];
     const time = timeStamp.getHours() % 12 + (timeStamp.getHours()/12 == 1 ? 12 : 0) + (timeStamp.getHours()/12 >= 1 ? "PM" : "AM");
-    return {name: (a.company ? a.company : "Booked!"), time, day, staff: a.staff_id, user: a.user_id};
+    return {name: (a.company ? a.company : "Booked!"), time, day, staff: a.staff_id, user: a.user_id, id: (a.id ? a.id : 1)};
   }).filter((a) => a.day);
   let week = [];
 
@@ -104,17 +104,19 @@ export const hideAppointment = () => {
     payload: {
       name: "",
       time: "",
+      id: 0,
       visible: false
     }
   }
 }
 
-export const setAppointment = (day, member) => {
+export const setAppointment = (day, member, id) => {
   return{
     type: SET_APPOINTMENT,
     payload: {
       day,
       member,
+      id,
       visible: true
     }
   }
@@ -126,6 +128,7 @@ export const clearAppointment = () => {
     payload: {
       day: 0,
       member: 0,
+      id: 0,
       visible: false
     }
   }
@@ -135,7 +138,7 @@ export const uploadAppointment = (appointment, token, success, error) => {
   return function(dispatch){
     const {day, member, company, time} = appointment;
     const dayDiff = (day+1)-new Date().getDay();
-    const hourDiff = parseInt(time.split('PM')[0].split('AM')[0].trim()) - new Date().getHours() % 12 + (time.indexOf('PM') != -1 ? 0 : 12) + (parseInt(time.split('PM')[0].split('AM')[0].trim()) % 12 == 0 ? -12 : 0);
+    const hourDiff = parseInt(time.split('PM')[0].split('AM')[0].trim()) - new Date().getHours() % 12 + (time.indexOf('PM') != -1 ? 0 : 12) + (new Date().getHours() >= 12 && time.indexOf('AM') != -1) ? -12 : 0 + (parseInt(time.split('PM')[0].split('AM')[0].trim()) % 12 == 0 ? -12 : 0);
     const minuteDiff = new Date().getMinutes();
     const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60 - new Date().getTimezoneOffset()*60*1000; 
     axios.post(generateUrl('/appointments', {token, time: new Date(myDate).toISOString().slice(0, 19).replace('T', ' '), company, staff_id: member})).then(({data}) => {
@@ -143,6 +146,25 @@ export const uploadAppointment = (appointment, token, success, error) => {
         dispatch({
           type: GET_APPOINTMENTS,
           payload: parseAppointments(data)
+        });
+        success();
+      }else{
+        error(data.error);
+      }
+    }).catch((e) => {
+      error(e);
+    });
+  }
+}
+
+export const deleteAppointment = (params, success, error) => {
+  return function(dispatch){
+    axios.post(generateUrl('/appointments/delete', params)).then(({data}) => {
+      if(!data.error){
+        const week = parseAppointments(data);
+        dispatch({
+          type: DELETE_APPOINTMENT,
+          payload: week
         });
         success();
       }else{

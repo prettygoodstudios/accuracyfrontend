@@ -14,10 +14,10 @@ const ScheduleSection = (props) => {
       </div>
       { staff.map((s, i) => {
         if(appointments[s.id] && user.id && (appointments[s.id].user === user.id || user.role === "admin")){
-          const {name, time} = appointments[s.id];
+          const {name, time, id} = appointments[s.id];
           return(
             <div className="schedule__section__apointment" key={i}>
-               <a onClick={() => getApointment({name, time})} className="schedule__section__apointment__more-info">
+               <a onClick={() => getApointment({name, time, id})} className="schedule__section__apointment__more-info">
                  <span className="schedule__section__apointment__name">{name}</span>
                  <span className="schedule__section__apointment__time">{time}</span>
                  <span className="schedule__section__apointment__time">Click For More Info</span>
@@ -65,11 +65,11 @@ class Schedule extends Component{
   }
 
 
-  setApointment = (day, member) => {
+  setApointment = (day, member, id) => {
     if(this.props.session == ""){
       this.props.logInModal(true);
     }else{
-      this.props.setAppointment(day, member);
+      this.props.setAppointment(day, member, id);
     }
   }
 
@@ -78,7 +78,7 @@ class Schedule extends Component{
     this.setState({
       appointmentCompany: "",
       appointmentTime: ""
-    })
+    });
   }
 
   updateInput = (type, e) => {
@@ -105,11 +105,15 @@ class Schedule extends Component{
       company: appointmentCompany
     }
     if(appointmentCompany != "" && appointmentTime != ""){
-      this.props.uploadAppointment(myAppointment, this.props.session, () => alert("It worked bro!"), (e) => alert("It failed", e));
+      this.props.uploadAppointment(myAppointment, this.props.session, () => console.log("success!"), (e) => alert("It failed", e));
       this.clearAppointment();
     }else{
       alert("You must enter in a company/entity name and time.");
     }
+  }
+
+  deleteAppointment = (params) => {
+    this.props.deleteAppointment(params, () => this.props.hideAppointment(), (e) => alert(e));
   }
 
   render(){
@@ -140,6 +144,7 @@ class Schedule extends Component{
           <Modal dismissModal={() => hideAppointment()}>
             <div className="view-appointment-modal">
               <p>{viewAppointmentModal.name} has an appointment at {viewAppointmentModal.time}.</p>
+              <a onClick={() => this.deleteAppointment({token: this.props.session, id: viewAppointmentModal.id})} className="button">Cancel</a>
             </div>
           </Modal>
         }
