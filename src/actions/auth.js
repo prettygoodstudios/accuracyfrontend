@@ -29,6 +29,20 @@ export const logIn = (email, password, success, error) => {
   }
 }
 
+export const createUser = (email, password, success, error) => {
+  return function(dispatch){
+    axios.post(generateUrl('/users', {email, password})).then(({data}) => {
+      if(!data.error){
+        dispatch(logIn(email, password, success, error));
+      }else{
+        error(data.error);
+      }
+    }).catch((e) => {
+      error(e);
+    });
+  }
+}
+
 export const getUser = (token, success, error) => {
   return function(dispatch){
     axios.get(generateUrl('/users', {token})).then(({data}) => {

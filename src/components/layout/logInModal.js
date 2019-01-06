@@ -10,7 +10,9 @@ class LogInModal extends Component {
     super();
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      passwordConfirmation: "",
+      logIn: true
     }
   }
 
@@ -25,7 +27,9 @@ class LogInModal extends Component {
   closeModal = () => {
     this.setState({
       email: "",
-      password: ""
+      password: "",
+      passwordConfirmation: "",
+      logIn: true
     });
     this.props.logInModal(false);
   }
@@ -35,19 +39,64 @@ class LogInModal extends Component {
     this.props.logIn(email, password, (u) => this.closeModal(), (e) => alert(e));
   }
 
+  createAccount = () => {
+    const {email, password, passwordConfirmation} = this.state;
+    if(password == passwordConfirmation){
+      if(email.indexOf("@") != -1 && email.split("@")[1].indexOf(".") != -1){
+        this.props.createUser(email, password, this.closeModal, (e) => alert(e));
+      }else{
+        alert("You must enter in a valid email.");
+      }
+    }else{
+      alert("Your password and password confirmation must match.");
+    }
+  }
+
+  toggleLogin = (val) => {
+    this.setState({
+      logIn: val,
+      email: "",
+      password: "",
+      passwordConfirmation: ""
+    });
+  }
+
   render(){
-    const {email, password} = this.state;
+    const {email, password, passwordConfirmation, logIn} = this.state;
     return(
       <div>
         {this.props.show &&
-          <Modal dismissModal={() => this.closeModal()} submitModal={() => this.logIn()}>
+          <Modal dismissModal={() => this.closeModal()} submitModal={logIn ? () => this.logIn() : () => this.createAccount()}>
             <div className="log-in-modal">
-              <h1>Log In</h1>
-              <p>Loging in enables you to view and book consultations as well as leave reviews.</p>
+              { logIn ?
+                <div>
+                  <h1>Log In</h1>
+                  <p>Loging in enables you to view and book consultations as well as leave reviews.</p>
+                </div>
+                :
+                <div>
+                  <h1>Create an Account</h1>
+                  <p>An account is required to view and book consultations as well as leave reviews.</p>
+                </div>
+              }
               <label for="email">Email</label>
               <input type="text" name="email" id="email" value={email} onChange={(t) => this.updateInput("email", t)}/>
               <label for="password">Password</label>
               <input type="password" name="password" id="password" value={password} onChange={(t) => this.updateInput("password", t)}/>
+              {
+                !logIn &&
+                  <div>
+                    <label for="passwordConfirmation">Password Confirmation</label>
+                    <input type="password" name="passwordConfirmation" id="passwordConfirmation" value={passwordConfirmation} onChange={(t) => this.updateInput("passwordConfirmation", t)}/>
+                  </div>
+              }
+              <h3>Or</h3>
+              {
+                logIn ?
+                  <a className="button" onClick={() => this.toggleLogin(false)}>Create An Account!</a>
+                :
+                  <a className="button" onClick={() => this.toggleLogin(true)}>Log In!</a>
+              }
             </div>
           </Modal>
         }
