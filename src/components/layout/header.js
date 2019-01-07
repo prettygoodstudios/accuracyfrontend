@@ -24,10 +24,6 @@ class Header extends Component {
   }
 
   componentDidMount(){
-    const id = window.location.href.split("=")[1];
-    if(id && id != ""){
-      this.scrolling(id);
-    }
     window.addEventListener('resize', () => {
       if(window.innerWidth > 700){
         this.setState({
@@ -37,19 +33,6 @@ class Header extends Component {
     });
   }
 
-  scrolling = async (id) => {
-    console.log("Staff Length", this.props.staff.length);
-    const element = document.getElementById(id);
-    console.log(element);
-    let set = false;
-    const scrolling = () => {
-      if(this.props.staff.length != 0 && !set){
-        set = true;
-        window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
-      }
-    }
-    window.setTimeout(scrolling, 1500);
-  }
 
   scrollTo = (id) => {
     const urlComponents = window.location.href.split("/");

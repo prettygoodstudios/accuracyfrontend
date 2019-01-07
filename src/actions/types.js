@@ -13,3 +13,5 @@ export const CREATE_STAFF = 'CREATE_STAFF';
 export const EDIT_STAFF = 'EDIT_STAFF';
 export const DELETE_STAFF = 'DELETE_STAFF';
 export const DELETE_APPOINTMENT = 'DELETE_APPOINTMENT';
+export const GET_REVIEWS = 'GET_REVIEWS';
+export const LEAVE_REVIEW = 'LEAVE_REVIEW';
