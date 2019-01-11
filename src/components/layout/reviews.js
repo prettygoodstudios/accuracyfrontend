@@ -64,10 +64,10 @@ class Reviews extends Component {
         { reviews.length > 0 ?
           <div className="reviews-wrapper">
             {reviews.map((m, i) => {
-              const {email, message, score} = m;
+              const {company, message, score} = m;
               return(
                 <div className="reviews-wrapper__review" key={i}>
-                  <span className="reviews-wrapper__review__client">{email}</span>
+                  <span className="reviews-wrapper__review__client">{company}</span>
                   <div className="reviews-wrapper__review__message">
                     <span>"{message}" - {score}</span>
                     <div className="reviews-wrapper__review__message__carot"></div>

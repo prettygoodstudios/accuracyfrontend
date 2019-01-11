@@ -12,6 +12,7 @@ class LogInModal extends Component {
       email: "",
       password: "",
       passwordConfirmation: "",
+      company: "",
       logIn: true
     }
   }
@@ -40,10 +41,10 @@ class LogInModal extends Component {
   }
 
   createAccount = () => {
-    const {email, password, passwordConfirmation} = this.state;
+    const {email, password, passwordConfirmation, company} = this.state;
     if(password == passwordConfirmation){
       if(email.indexOf("@") != -1 && email.split("@")[1].indexOf(".") != -1){
-        this.props.createUser(email, password, this.closeModal, (e) => alert(e));
+        this.props.createUser(email, password, company, this.closeModal, (e) => alert(e));
       }else{
         alert("You must enter in a valid email.");
       }
@@ -62,7 +63,7 @@ class LogInModal extends Component {
   }
 
   render(){
-    const {email, password, passwordConfirmation, logIn} = this.state;
+    const {email, password, passwordConfirmation, logIn, company} = this.state;
     return(
       <div>
         {this.props.show &&
@@ -88,6 +89,8 @@ class LogInModal extends Component {
                   <div>
                     <label for="passwordConfirmation">Password Confirmation</label>
                     <input type="password" name="passwordConfirmation" id="passwordConfirmation" value={passwordConfirmation} onChange={(t) => this.updateInput("passwordConfirmation", t)}/>
+                    <label for="company">Company/Entity Name</label>
+                    <input type="text" name="company" id="company" value={company} onChange={(t) => this.updateInput("company", t)}/>
                   </div>
               }
               <h3>Or</h3>
