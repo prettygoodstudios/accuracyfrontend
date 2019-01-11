@@ -43,6 +43,11 @@ class Reviews extends Component {
     }
   }
 
+  approveReview = (id) => {
+    const {session} = this.props;
+    this.props.approveReview({token: session, id}, () => alert("Approved!"), () => alert("You do not have permission to perform this action."));
+  }
+
   hideReviewForm = () => {
     this.setState({
       show: false,
@@ -61,15 +66,23 @@ class Reviews extends Component {
     return(
       <div id="reviews">
         <p><span className="start-phrase">Our reviews</span> we are highly regarded by the vast majority of our clients. Here is a collection of some of their opinions.</p>
-        { reviews.length > 0 ?
+        { (reviews.filter((r) => r.approved == 1).length > 0 || user.role == "admin") ?
           <div className="reviews-wrapper">
             {reviews.map((m, i) => {
-              const {company, message, score} = m;
+              const {company, message, score, approved, id} = m;
+              if(approved == 0 && user.role !== "admin"){
+                return <div key={i}></div>;
+              }
               return(
                 <div className="reviews-wrapper__review" key={i}>
                   <span className="reviews-wrapper__review__client">{company}</span>
                   <div className="reviews-wrapper__review__message">
                     <span>"{message}" - {score}</span>
+                    { (approved == 0 && user.role == "admin") && 
+                      <div>
+                        <a className="button" onClick={() => this.approveReview(id)}>Approve</a>
+                      </div>
+                    }
                     <div className="reviews-wrapper__review__message__carot"></div>
                   </div>
                 </div>

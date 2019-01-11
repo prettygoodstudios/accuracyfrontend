@@ -1,4 +1,4 @@
-import {GET_REVIEWS, LEAVE_REVIEW} from "../actions/types";
+import {GET_REVIEWS, LEAVE_REVIEW, APPROVE_REVIEW} from "../actions/types";
 
 const INIT_STATE = {
     reviews: []
@@ -6,6 +6,7 @@ const INIT_STATE = {
 
 export default function(state = INIT_STATE, action){
     switch(action.type){
+        case APPROVE_REVIEW:
         case LEAVE_REVIEW:
         case GET_REVIEWS:
             return{
