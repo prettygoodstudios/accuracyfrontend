@@ -6,11 +6,12 @@ import * as actions from "../../actions";
 import Modal from "../widgets/modal";
 
 const ScheduleSection = (props) => {
-  const {day, section, appointments, getApointment, setApointment, staff, user} = props;
+  const {day, section, appointments, getApointment, setApointment, staff, user, dayMonth} = props;
   return(
     <div className={`schedule__section schedule__section-day-${section}`}>
       <div className="schedule__section__day">
-      {day}
+        {day}
+        <span>{dayMonth}</span>
       </div>
       { staff.map((s, i) => {
         if(appointments[s.id] && user.id && (appointments[s.id].user === user.id || user.role === "admin")){
@@ -162,7 +163,7 @@ class Schedule extends Component{
             })}
           </div>
           { staff && days[0].map((d, i) => {
-            return <ScheduleSection staff={staff} user={user} day={d.day} getApointment={(m) => this.getApointment(m)} setApointment={(m) => this.setApointment(i, m)} appointments={d.appointments} section="1" key={i}/>
+            return <ScheduleSection staff={staff} dayMonth={d.dayMonth} user={user} day={d.day} getApointment={(m) => this.getApointment(m)} setApointment={(m) => this.setApointment(i, m)} appointments={d.appointments} section="1" key={i}/>
           })
           }
           <div className="schedule__section schedule__staff schedule__staff-2">
@@ -178,7 +179,7 @@ class Schedule extends Component{
             })}
           </div>
           { staff && days[1].map((d, i) => {
-            return <ScheduleSection day={d.day} user={user} staff={staff} getApointment={(m) => this.getApointment(m)} setApointment={(m) => this.setApointment(i+3, m)} appointments={d.appointments} section="2" key={i}/>
+            return <ScheduleSection day={d.day} dayMonth={d.dayMonth} user={user} staff={staff} getApointment={(m) => this.getApointment(m)} setApointment={(m) => this.setApointment(i+3, m)} appointments={d.appointments} section="2" key={i}/>
           })
           }
         </div>

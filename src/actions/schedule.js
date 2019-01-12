@@ -29,13 +29,15 @@ const parseAppointments = (data) => {
   }).filter((a) => a.day);
   let week = [];
 
-  days.forEach((d) => {
+  days.forEach((d, i) => {
+    const diff = new Date((1000*60*60*24*(i - new Date().getDay() + 1)) + new Date().getTime());
+    const dayMonth = `${diff.getMonth()+1}/${diff.getDate()}`;
     const selected = formattedAppointments.filter((a) => a.day == d && a.day != undefined);
     let appointments = {};
     selected.forEach((s) => {
       appointments[s.staff] = s;
     });
-    week.push({day: d, appointments});
+    week.push({day: d, dayMonth, appointments});
   });
   return week;
 }

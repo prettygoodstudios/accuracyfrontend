@@ -33,6 +33,9 @@
       align-items: center;
       font-size: 1.5em;
       color: $white-text-color;
+      span{
+        font-size: 0.8em;
+      }
     }
     &__apointment{
       &__time{
