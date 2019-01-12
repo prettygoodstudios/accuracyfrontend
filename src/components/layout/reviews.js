@@ -77,7 +77,18 @@ class Reviews extends Component {
                 <div className="reviews-wrapper__review" key={i}>
                   <span className="reviews-wrapper__review__client">{company}</span>
                   <div className="reviews-wrapper__review__message">
-                    <span>"{message}" - {score}</span>
+                    <span>"{message}"</span>
+                    <div className="reviews-wrapper__review__message__score">
+                      <span>Rating: {score}/5</span>
+                      <div className="reviews-wrapper__review__message__score__money">
+                        {[1,2,3,4,5].map((s) => {
+                          return(
+                            <img src={s <= score ? "https://s3-us-west-2.amazonaws.com/staticgeofocus/Bill.png" : "https://s3-us-west-2.amazonaws.com/staticgeofocus/GrayBill.png"}/>
+                          );
+                        })
+                       }
+                      </div>
+                    </div>
                     { (approved == 0 && user.role == "admin") && 
                       <div>
                         <a className="button" onClick={() => this.approveReview(id)}>Approve</a>
