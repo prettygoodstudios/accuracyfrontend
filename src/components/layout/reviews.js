@@ -129,6 +129,9 @@ class Reviews extends Component {
             <p>Your review will not be visible to the public until it has been approved by a site administrator.</p>
           </Modal>
         }
+        { !session && 
+          <center style={{marginBottom: 10}}><a onClick={() => this.props.logInModal(true)} className="button">Leave a Review!</a></center>
+        }
       </div>
     )
   }
