@@ -14,10 +14,9 @@ export const setScroll = () => {
     return function(dispatch){
         const id = window.location.href.split("=")[1];
         if(id && id != ""){
-        this.scrolling(id);
+            const element = document.getElementById(id);
+            console.log(element);
+            setTimeout(() => window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'}), 200);
         }
-        const element = document.getElementById(id);
-        console.log(element);
-        window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
     }
 }

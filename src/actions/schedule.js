@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS, CREATE_STAFF, EDIT_STAFF, DELETE_STAFF, DELETE_APPOINTMENT} from './types';
 import {generateUrl} from "./urlHelpers";
+import { setScroll } from './scrolling';
 
 const firebaseKeys = {
   ...process.env
