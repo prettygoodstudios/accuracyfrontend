@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 
 import Modal from "../widgets/modal";
+import Error from "../widgets/error";
 
 class Reviews extends Component {
 
@@ -13,7 +14,8 @@ class Reviews extends Component {
       score: undefined,
       message: "",
       show: true,
-      succesModal: false
+      succesModal: false,
+      error: ""
     }
   }
 
@@ -34,12 +36,12 @@ class Reviews extends Component {
     const {score, message} = this.state;
     if(score && score != 0){
       if(message.length > 6){
-        this.props.leaveReview({token: session, score, message}, this.hideReviewForm, (e) => alert(e));
+        this.props.leaveReview({token: session, score, message}, this.hideReviewForm, (e) => this.setState({error: e}));
       }else{
-        alert("You must enter in a message atleast six characters long.");
+        this.setState({error: "You must enter in a message atleast six characters long."});
       }
     }else{
-      alert("You must enter in a score!");
+      this.setState({error: "You must enter in a score!"});
     }
   }
 
@@ -57,7 +59,7 @@ class Reviews extends Component {
   }
 
   render(){
-    const {message, score, show, succesModal} = this.state;
+    const {message, score, show, succesModal, error} = this.state;
     const {session, user, reviews} = this.props;
 
     const myReviews = reviews.filter((r) => r.user_id === user.id);
@@ -116,7 +118,8 @@ class Reviews extends Component {
                 <option>3</option>
                 <option>4</option>
                 <option>5</option>
-              </select>
+            </select>
+            <center style={{marginTop: 10, marginBottom: 10}}><Error error={error}/></center>
             <a className="button" onClick={() => this.leaveReview()}>Submit</a>
           </div>
         }

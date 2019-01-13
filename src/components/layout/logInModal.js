@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import * as actions from "../../actions";
 
 import Modal from "../widgets/modal.js";
+import Error from "../widgets/error.js";
 
 class LogInModal extends Component {
   constructor(){
@@ -13,7 +14,8 @@ class LogInModal extends Component {
       password: "",
       passwordConfirmation: "",
       company: "",
-      logIn: true
+      logIn: true,
+      error: ""
     }
   }
 
@@ -30,6 +32,7 @@ class LogInModal extends Component {
       email: "",
       password: "",
       passwordConfirmation: "",
+      error: "",
       logIn: true
     });
     this.props.logInModal(false);
@@ -37,19 +40,19 @@ class LogInModal extends Component {
 
   logIn = () => {
     const {email, password} = this.state;
-    this.props.logIn(email, password, (u) => this.closeModal(), (e) => alert(e));
+    this.props.logIn(email, password, (u) => this.closeModal(), (e) => this.setState({error: e}));
   }
 
   createAccount = () => {
     const {email, password, passwordConfirmation, company} = this.state;
     if(password == passwordConfirmation){
       if(email.indexOf("@") != -1 && email.split("@")[1].indexOf(".") != -1){
-        this.props.createUser(email, password, company, this.closeModal, (e) => alert(e));
+        this.props.createUser(email, password, company, this.closeModal, (e) => this.setState({error: e}));
       }else{
-        alert("You must enter in a valid email.");
+        this.setState({error: "You must enter in a valid email."});
       }
     }else{
-      alert("Your password and password confirmation must match.");
+      this.setState({error: "Your password and password confirmation must match."});
     }
   }
 
@@ -58,12 +61,13 @@ class LogInModal extends Component {
       logIn: val,
       email: "",
       password: "",
-      passwordConfirmation: ""
+      passwordConfirmation: "",
+      error: ""
     });
   }
 
   render(){
-    const {email, password, passwordConfirmation, logIn, company} = this.state;
+    const {email, password, passwordConfirmation, logIn, company, error} = this.state;
     return(
       <div>
         {this.props.show &&
@@ -93,6 +97,7 @@ class LogInModal extends Component {
                     <input type="text" name="company" id="company" value={company} onChange={(t) => this.updateInput("company", t)}/>
                   </div>
               }
+              <center><Error error={error}/></center>
               <h3>Or</h3>
               {
                 logIn ?

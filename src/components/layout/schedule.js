@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from "../../actions";
 
 import Modal from "../widgets/modal";
+import Error from "../widgets/error";
 
 const ScheduleSection = (props) => {
   const {day, section, appointments, getApointment, setApointment, staff, user, dayMonth} = props;
@@ -52,7 +53,8 @@ class Schedule extends Component{
     super();
     this.state = {
       appointmentCompany: "",
-      appointmentTime: ""
+      appointmentTime: "",
+      error: ""
     }
   }
 
@@ -78,7 +80,8 @@ class Schedule extends Component{
     this.props.clearAppointment();
     this.setState({
       appointmentCompany: "",
-      appointmentTime: ""
+      appointmentTime: "",
+      error: ""
     });
   }
 
@@ -109,17 +112,17 @@ class Schedule extends Component{
       this.props.uploadAppointment(myAppointment, this.props.session, () => console.log("success!"), (e) => alert("It failed", e));
       this.clearAppointment();
     }else{
-      alert("You must enter in a company/entity name and time.");
+      this.setState({error: "You must enter in a company/entity name and time."});
     }
   }
 
   deleteAppointment = (params) => {
-    this.props.deleteAppointment(params, () => this.props.hideAppointment(), (e) => alert(e));
+    this.props.deleteAppointment(params, () => this.props.hideAppointment(), (e) => this.setState({error: e.toString()}));
   }
 
   render(){
     const {appointments, newAppointmentModal, clearAppointment, viewAppointmentModal, hideAppointment, staff, user} = this.props;
-    const {appointmentCompany, appointmentTime} = this.state;
+    const {appointmentCompany, appointmentTime, error} = this.state;
     const days = [appointments.slice(0,3), appointments.slice(3, 5)];
     //const staff = [{name: "John Doe"}, {name: "Sam Smith"}, {name: "Bryan Jones"}, {name: "Mike Taylor"}];
     return(
@@ -138,6 +141,7 @@ class Schedule extends Component{
                 <option>12 PM</option>
                 <option>1 PM</option>
               </select>
+              <center><Error error={error}/></center>
             </div>
           </Modal>
         }
@@ -146,6 +150,7 @@ class Schedule extends Component{
             <div className="view-appointment-modal">
               <p>{viewAppointmentModal.name} has an appointment at {viewAppointmentModal.time}.</p>
               <a onClick={() => this.deleteAppointment({token: this.props.session, id: viewAppointmentModal.id})} className="button">Cancel</a>
+              <center><Error error={error}/></center>
             </div>
           </Modal>
         }

@@ -68,6 +68,14 @@ a{
   }
 }
 
+.error{
+  display: inline-block;
+  background-color: $primary-color;
+  color: $white-text-color;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 table{
   width: 100%;
   margin-bottom: 20px;
