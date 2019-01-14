@@ -33,7 +33,8 @@ class LogInModal extends Component {
       password: "",
       passwordConfirmation: "",
       error: "",
-      logIn: true
+      logIn: true,
+      company: ""
     });
     this.props.logInModal(false);
   }
@@ -62,7 +63,8 @@ class LogInModal extends Component {
       email: "",
       password: "",
       passwordConfirmation: "",
-      error: ""
+      error: "",
+      company: ""
     });
   }
 

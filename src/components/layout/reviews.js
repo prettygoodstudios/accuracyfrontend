@@ -35,7 +35,7 @@ class Reviews extends Component {
     const {session} = this.props;
     const {score, message} = this.state;
     if(score && score != 0){
-      if(message.length > 6){
+      if(message.length >= 6){
         this.props.leaveReview({token: session, score, message}, this.hideReviewForm, (e) => this.setState({error: e}));
       }else{
         this.setState({error: "You must enter in a message atleast six characters long."});
