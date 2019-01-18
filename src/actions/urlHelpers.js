@@ -1,4 +1,4 @@
-export const rootURL = (process.env.NODE_ENV == 'dev') ? 'http://localhost:3010' : 'https://accuracy-backend.herokuapp.com';
+export const rootURL = (process.env.NODE_ENV != 'dev') ? 'http://localhost:3010' : 'https://accuracy-backend.herokuapp.com';
 
 
 export const generateUrl = (route, params) => {

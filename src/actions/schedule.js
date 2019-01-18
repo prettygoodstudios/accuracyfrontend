@@ -141,7 +141,8 @@ export const uploadAppointment = (appointment, token, success, error) => {
   return function(dispatch){
     const {day, member, company, time} = appointment;
     const dayDiff = (day+1)-new Date().getDay();
-    const hourDiff = parseInt(time.split('PM')[0].split('AM')[0].trim()) - new Date().getHours() % 12 + (time.indexOf('PM') != -1 ? 0 : 12) + (new Date().getHours() >= 12 && time.indexOf('AM') != -1) ? -12 : 0 + (parseInt(time.split('PM')[0].split('AM')[0].trim()) % 12 == 0 ? -12 : 0);
+    const inputHour = parseInt(time.split('PM')[0].split('AM')[0].trim())
+    const hourDiff = inputHour + ((time.indexOf('PM') != -1) ? 12 : 0) - new Date().getHours() + ((inputHour/12 === 1 ? -12 : 0));
     const minuteDiff = new Date().getMinutes();
     const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60 - new Date().getTimezoneOffset()*60*1000; 
     axios.post(generateUrl('/appointments', {token, time: new Date(myDate).toISOString().slice(0, 19).replace('T', ' '), company, staff_id: member})).then(({data}) => {

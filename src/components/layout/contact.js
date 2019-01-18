@@ -30,7 +30,7 @@ class Contact extends Component {
           </Modal>
         }
         <h1>Contact</h1>
-        <p>You can contact us at the following support email accuracy.acounting.info@gmail.com</p>
+        <p>You can contact us at the following support email <span style={{wordBreak: "break-all"}}>accuracy.acounting.info@gmail.com</span></p>
         <div className="contact-wrapper__section-wrapper">
           <div className="contact-wrapper__section-wrapper__tweet-section">
             <span><i className="fas fa-envelope"></i> Send us an email</span>
