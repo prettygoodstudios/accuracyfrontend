@@ -4,6 +4,8 @@ import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, 
 import {generateUrl} from "./urlHelpers";
 import { setScroll } from './scrolling';
 
+
+
 const firebaseKeys = {
   ...process.env
 };
@@ -144,7 +146,7 @@ export const uploadAppointment = (appointment, token, success, error) => {
     const inputHour = parseInt(time.split('PM')[0].split('AM')[0].trim())
     const hourDiff = inputHour + ((time.indexOf('PM') != -1) ? 12 : 0) - new Date().getHours() + ((inputHour/12 === 1 ? -12 : 0));
     const minuteDiff = new Date().getMinutes();
-    const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60 - new Date().getTimezoneOffset()*60*1000; 
+    const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60;
     axios.post(generateUrl('/appointments', {token, time: new Date(myDate).toISOString().slice(0, 19).replace('T', ' '), company, staff_id: member})).then(({data}) => {
       if(!data.error){
         dispatch({
