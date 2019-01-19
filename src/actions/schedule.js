@@ -25,9 +25,9 @@ const parseAppointments = (data) => {
   });
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
   const formattedAppointments = currenAppointments.map((a) => {
-    const timeStamp = new Date(new Date(a.time).getTime() - new Date().getTimezoneOffset() * 1000 * 60);
+    const timeStamp = new Date(new Date(a.time).getTime());
     const day = days[(timeStamp.getDay() - 1)];
-    const realHours = (timeStamp.getHours());
+    const realHours = (timeStamp.getHours() + new Date().getTimezoneOffset()/60);
     const time = realHours % 12 + (realHours/12 == 1 ? 12 : 0) + (realHours/12 >= 1 ? "PM" : "AM");
     return {name: (a.company ? a.company : "Booked!"), time, day, staff: a.staff_id, user: a.user_id, id: (a.id ? a.id : 1)};
   }).filter((a) => a.day);
