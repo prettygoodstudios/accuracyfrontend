@@ -25,9 +25,10 @@ const parseAppointments = (data) => {
   });
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
   const formattedAppointments = currenAppointments.map((a) => {
-    const timeStamp = new Date(a.time);
+    const timeStamp = new Date(new Date(a.time).getTime() - new Date().getTimezoneOffset() * 1000 * 60);
     const day = days[(timeStamp.getDay() - 1)];
-    const time = timeStamp.getHours() % 12 + (timeStamp.getHours()/12 == 1 ? 12 : 0) + (timeStamp.getHours()/12 >= 1 ? "PM" : "AM");
+    const realHours = (timeStamp.getHours());
+    const time = realHours % 12 + (realHours/12 == 1 ? 12 : 0) + (realHours/12 >= 1 ? "PM" : "AM");
     return {name: (a.company ? a.company : "Booked!"), time, day, staff: a.staff_id, user: a.user_id, id: (a.id ? a.id : 1)};
   }).filter((a) => a.day);
   let week = [];
@@ -146,8 +147,9 @@ export const uploadAppointment = (appointment, token, success, error) => {
     const inputHour = parseInt(time.split('PM')[0].split('AM')[0].trim())
     const hourDiff = inputHour + ((time.indexOf('PM') != -1) ? 12 : 0) - new Date().getHours() + ((inputHour/12 === 1 ? -12 : 0));
     const minuteDiff = new Date().getMinutes();
-    const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60 - new Date().getTimezoneOffset() * 60 * 1000;
-    axios.post(generateUrl('/appointments', {token, time: new Date(myDate).toISOString().slice(0, 19).replace('T', ' '), company, staff_id: member})).then(({data}) => {
+    const myDate = new Date().getTime() + dayDiff*1000*60*60*24 + hourDiff*1000*60*60 - minuteDiff*1000*60;
+    const utcDate = new Date(myDate).getTime() - new Date().getTimezoneOffset() * 1000 * 60;
+    axios.post(generateUrl('/appointments', {token, time: new Date(utcDate).toISOString().slice(0, 19).replace('T', ' '), company, staff_id: member})).then(({data}) => {
       if(!data.error){
         dispatch({
           type: GET_APPOINTMENTS,
