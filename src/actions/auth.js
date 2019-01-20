@@ -13,7 +13,7 @@ export const logInModal = (show) => {
 
 export const logIn = (email, password, success, error) => {
   return function(dispatch){
-    axios.post(generateUrl('/users/session' ,{email, password})).then(({data}) => {
+    axios.post(generateUrl('/users/session' ,{}), {email, password}).then(({data}) => {
       if(!data.error){
         dispatch({
           type: LOG_IN,
@@ -31,7 +31,7 @@ export const logIn = (email, password, success, error) => {
 
 export const createUser = (email, password, company, success, error) => {
   return function(dispatch){
-    axios.post(generateUrl('/users', {email, password, company})).then(({data}) => {
+    axios.post(generateUrl('/users', {}), {email, password, company}).then(({data}) => {
       if(!data.error){
         dispatch(logIn(email, password, success, error));
       }else{
