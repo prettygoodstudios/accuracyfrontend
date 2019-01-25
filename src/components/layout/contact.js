@@ -1,30 +1,47 @@
 import React, {Component} from 'react';
+import axios from "axios";
 
 import Modal from '../widgets/modal';
+import { generateUrl } from '../../actions/urlHelpers';
 
 class Contact extends Component {
 
   constructor(){
     super();
     this.state = {
-      showEmailModal: false
+      showEmailModal: false,
+      email: ""
     }
   }
 
   toggleModal = () => {
     this.setState({
-      showEmailModal: !this.state.showEmailModal
+      showEmailModal: !this.state.showEmailModal,
+      email: ""
     });
   }
 
   sendEmail = () => {
-    window.setTimeout(() => this.toggleModal(), 200+Math.floor(Math.random()*1000));
+    const {email} = this.state;
+    axios.post(generateUrl('/sendemail', {email})).then(() => {
+      this.toggleModal();
+    }).catch((e) => {
+      this.toggleModal();
+    });
+  }
+
+  updateEmail = (e) => {
+    const email = e.target.value;
+    this.setState({
+      email
+    });
   }
 
   render(){
+    const {email, showEmailModal} = this.state;
     return(
       <div className="contact-wrapper" id="contact">
-        {this.state.showEmailModal &&
+        {showEmailModal &&
           <Modal dismissModal={() => this.toggleModal()}>
             <h1 className="contact-modal">Email Sent!</h1>
           </Modal>
@@ -34,7 +51,7 @@ class Contact extends Component {
         <div className="contact-wrapper__section-wrapper">
           <div className="contact-wrapper__section-wrapper__tweet-section">
             <span><i className="fas fa-envelope"></i> Send us an email</span>
-            <textarea placeholder="Message" rows="5"/>
+            <textarea placeholder="Message" rows="5" value={email} onChange={(e) => this.updateEmail(e)}/>
             <a onClick={this.sendEmail}><i className="fas fa-envelope"></i> Send</a>
           </div>
           <div className="contact-wrapper__section-wrapper__map-section">

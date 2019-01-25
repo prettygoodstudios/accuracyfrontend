@@ -13,16 +13,21 @@
     
     &__title{
       font-size: 1.5em;
+      text-align: center;
     }
     &__name{
       font-size: 2em;
+      text-align: center;
     }
   }
 }
 
-@media only screen and (max-width: 619px) {
+@media only screen and (max-width: 730px) {
   .team-wrapper{
     justify-content: center;
+    &__member{
+      width: 100%;
+    }
   }
 }
 
