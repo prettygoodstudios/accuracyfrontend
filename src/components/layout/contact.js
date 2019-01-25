@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import axios from "axios";
 
 import Modal from '../widgets/modal';
+import Error from "../widgets/error";
+
 import { generateUrl } from '../../actions/urlHelpers';
+
 
 class Contact extends Component {
 
@@ -10,7 +13,8 @@ class Contact extends Component {
     super();
     this.state = {
       showEmailModal: false,
-      email: ""
+      email: "",
+      error: ""
     }
   }
 
@@ -23,11 +27,25 @@ class Contact extends Component {
 
   sendEmail = () => {
     const {email} = this.state;
-    axios.post(generateUrl('/sendemail', {email})).then(() => {
-      this.toggleModal();
-    }).catch((e) => {
-      this.toggleModal();
-    });
+    if(email.length >= 6){
+      const response = grecaptcha.getResponse() != "";
+      if(response){
+        this.setState({error: ""});
+        axios.post(generateUrl('/sendemail', {email})).then(() => {
+          this.toggleModal();
+        }).catch((e) => {
+          this.toggleModal();
+        });
+      }else{
+        this.setState({
+          error: "You must prove you are a human."
+        });
+      }
+    }else{
+      this.setState({
+        error: "Your message must be atleast six characters long."
+      })
+    }
   }
 
   updateEmail = (e) => {
@@ -38,7 +56,7 @@ class Contact extends Component {
   }
 
   render(){
-    const {email, showEmailModal} = this.state;
+    const {email, showEmailModal, error} = this.state;
     return(
       <div className="contact-wrapper" id="contact">
         {showEmailModal &&
@@ -52,7 +70,13 @@ class Contact extends Component {
           <div className="contact-wrapper__section-wrapper__tweet-section">
             <span><i className="fas fa-envelope"></i> Send us an email</span>
             <textarea placeholder="Message" rows="5" value={email} onChange={(e) => this.updateEmail(e)}/>
+            <center style={{marginTop: 10}}>
+              <form action="?" method="POST">
+                <div id="captcha-widget" class="g-recaptcha" data-sitekey="6Lc2nIwUAAAAALCAIsiSt6xByBfHutFKhPQWelrl"></div>
+              </form>
+            </center>
             <a onClick={this.sendEmail}><i className="fas fa-envelope"></i> Send</a>
+            <center><Error error={error}/></center>
           </div>
           <div className="contact-wrapper__section-wrapper__map-section">
             <span><i className="fas fa-map-marked-alt"></i> 665 West Center Street</span>
