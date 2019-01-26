@@ -1,35 +1,63 @@
-import React from 'react';
+import React, {Component} from 'react';
+
+const CarouselItem = (props) => {
+  const {title, icon, description, pricing} = props;
+  return(
+    <div className="carousel__item">
+      <i className={icon}></i>
+      <h3>{title}</h3>
+      <span>${pricing}/Hour</span>
+      <p>{description}</p>
+    </div>
+  );
+}
+
+class Carousel extends Component {
+
+  constructor(){
+    super();
+    this.state = {
+      items: [{icon: "fas fa-book", pricing: 20, title: "Bookeeping", description: "The term bookkeeping means different things to different people: Some people think that bookkeeping is the same as accounting. They assume that keeping a company's books and preparing its financial statements and tax reports are all part of bookkeeping."}, {icon: "fas fa-file-invoice-dollar", title: "Taxes", pricing: 20, description: "Orem tax professionals from H&R Block are ready to prepare your taxes. File taxes in Orem,Utah with an H&R Block expert today."}, {icon: "fas fa-search", title: "Audits", pricing: 35, description: "An audit examines your business's financial records to verify they are accurate. This is done through a systematic review of your transactions. Audits look at things like your financial statements and accounting books for small business. Many businesses have routine audits once per year."}, {icon: "fas fa-pen-alt", title: "Annual Reports", pricing: 50, description: "Annual reports are formal financial statements that are published yearly and sent to company stockholders and various other interested parties."}],
+      currentItem: 0
+    }
+  }
+
+  componentDidMount(){
+
+  }
+
+  updateItem = (delta) => {
+    const {currentItem, items} = this.state;
+    let newVal = 0;
+    if(currentItem + delta > items.length - 1){
+      newVal = 0;
+    }else if (currentItem + delta < 0){
+      newVal = items.length - 1;
+    }else{
+      newVal = currentItem + delta;
+    }
+    this.setState({
+      currentItem: newVal
+    });
+  }
+
+  render(){
+    const {items, currentItem} = this.state;
+    return(
+      <div className="carousel">
+        <a onClick={() => this.updateItem(-1)}><i className="fas fa-chevron-left"></i></a>
+        {CarouselItem(items[currentItem])}
+        <a onClick={() => this.updateItem(1)}><i className="fas fa-chevron-right"></i></a>
+      </div>
+    );
+  }
+}
 
 const Services = (props) => {
   return(
     <div id="services">
       <p><span className="start-phrase">Our services</span>  here is a comprehensive list of the various different accounting services we provide. We charge by the hour inorder to get a quote for a particular product shedule an apointment with one of our friendly staff. </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Hourly Rate</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Taxes</td>
-            <td>$20</td>
-          </tr>
-          <tr>
-            <td>Bookeeping</td>
-            <td>$20</td>
-          </tr>
-          <tr>
-            <td>Audits</td>
-            <td>$40</td>
-          </tr>
-          <tr>
-            <td>Payroll</td>
-            <td>$35</td>
-          </tr>
-        </tbody>
-      </table>
+      <Carousel />
     </div>
   );
 }
