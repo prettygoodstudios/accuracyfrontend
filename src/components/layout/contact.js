@@ -90,6 +90,7 @@ class Contact extends Component {
         <a className="twitter-timeline" href="https://twitter.com/AccuracyUt?ref_src=twsrc%5Etfw">Tweets by AccuracyUt</a>
         <h1>Leave us Feedback on Twitter</h1>
         <a href="https://twitter.com/intent/tweet?screen_name=AccuracyUt&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">Tweet to @AccuracyUt</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
     );
   }

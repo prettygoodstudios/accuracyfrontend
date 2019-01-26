@@ -71,3 +71,14 @@
     }
   }
 }
+
+@media only screen and (min-width: 950px){
+  .title-container{
+    span{
+      font-size: 1.73em;
+    }
+    img{
+      height: 100px;
+    }
+  }
+}
