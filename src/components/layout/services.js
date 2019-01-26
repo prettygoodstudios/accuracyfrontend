@@ -7,7 +7,6 @@ const CarouselItem = (props) => {
       <i className={icon}></i>
       <h3>{title}</h3>
       <span>${pricing}/Hour</span>
-      <p>{description}</p>
     </div>
   );
 }
@@ -48,6 +47,7 @@ class Carousel extends Component {
         <a onClick={() => this.updateItem(-1)}><i className="fas fa-chevron-left"></i></a>
         {CarouselItem(items[currentItem])}
         <a onClick={() => this.updateItem(1)}><i className="fas fa-chevron-right"></i></a>
+        <p>{items[currentItem].description}</p>
       </div>
     );
   }
