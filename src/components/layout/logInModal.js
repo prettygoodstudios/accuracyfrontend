@@ -73,7 +73,7 @@ class LogInModal extends Component {
     return(
       <div>
         {this.props.show &&
-          <Modal dismissModal={() => this.closeModal()} submitModal={logIn ? () => this.logIn() : () => this.createAccount()}>
+          <Modal dismissModal={() => this.closeModal()}>
             <div className="log-in-modal">
               { logIn ?
                 <div>
@@ -100,6 +100,7 @@ class LogInModal extends Component {
                   </div>
               }
               <center><Error error={error}/></center>
+              <center><a onClick={logIn ? () => this.logIn() : () => this.createAccount()} className="button">{logIn ? "Log In" : "Submit"}</a></center>
               <h3>Or</h3>
               {
                 logIn ?

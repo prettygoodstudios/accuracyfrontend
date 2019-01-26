@@ -25,7 +25,7 @@ const Services = (props) => {
             <td>$40</td>
           </tr>
           <tr>
-            <td>Annual Reports</td>
+            <td>Payroll</td>
             <td>$35</td>
           </tr>
         </tbody>
