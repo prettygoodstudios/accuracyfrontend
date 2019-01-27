@@ -17,18 +17,35 @@ class Contact extends Component {
     this.state = {
       showEmailModal: false,
       email: "",
-      error: ""
+      error: "",
+      tweets: [],
     }
   }
 
   componentDidMount(){
-    TwitterWidgetsLoader.load(function(err, twttr) {
+    axios.get(generateUrl('/tweets', {})).then((tweets) => {
+      TwitterWidgetsLoader.load((err, twttr) => {
+        if (err) {
+          //do some graceful degradation / fallback
+          return;
+        }
+        this.setState({
+          tweets: tweets.data
+        });
+        tweets.data.forEach((t, i) => {
+          TwitterWidgetsLoader.load((err, twttr) => {
+            twttr.widgets.createTweet(t.id , document.getElementById(`tweet-${i+1}`));
+          });
+        });
+      });
+    });
+    TwitterWidgetsLoader.load((err, twttr) => {
       if (err) {
         //do some graceful degradation / fallback
         return;
       }
+      //twttr.widgets.createTweet('20' , document.getElementById(`tweet-1`));
       twttr.widgets.createFollowButton('AccuracyUt', document.getElementById('follow-accuracy'));
-      twttr.widgets.createTweet('1068347238751989760', document.getElementById('tweet-1'));
     });
   }
 
@@ -70,7 +87,7 @@ class Contact extends Component {
   }
 
   render(){
-    const {email, showEmailModal, error} = this.state;
+    const {email, showEmailModal, error, tweets} = this.state;
     return(
       <div className="contact-wrapper" id="contact">
         {showEmailModal &&
@@ -101,7 +118,17 @@ class Contact extends Component {
           </div>
         </div>
         <h1>Our Tweets</h1>
-        <div id="tweet-1"></div>
+        { tweets.map((t, i) => {
+          return (
+            <div id={`tweet-${i+1}`} key={i} className="tweet">
+              <div className="tweet__title">
+                <img src={t.user.profile_image_url}/>
+                <h3>AccuracyUt</h3>
+              </div>
+              <span>{t.text}</span>
+            </div>);
+        })
+        }
         <h1>Follow us on Twitter</h1>
         <div id="follow-accuracy"></div>
       </div>
