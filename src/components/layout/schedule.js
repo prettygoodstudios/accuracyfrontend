@@ -149,7 +149,7 @@ class Schedule extends Component{
           <Modal dismissModal={() => hideAppointment()}>
             <div className="view-appointment-modal">
               <p>{viewAppointmentModal.name} has an appointment at {viewAppointmentModal.time}.</p>
-              <a onClick={() => this.deleteAppointment({token: this.props.session, id: viewAppointmentModal.id})} className="button">Cancel</a>
+              <a onClick={() => this.deleteAppointment({token: this.props.session, id: viewAppointmentModal.id})} className="button">Cancel Appointment</a>
               <center><Error error={error}/></center>
             </div>
           </Modal>
