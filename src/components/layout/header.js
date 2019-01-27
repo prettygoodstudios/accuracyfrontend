@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import $ from "jquery";
 
 function getOffset( el ) {
   var _x = 0;
@@ -42,7 +43,19 @@ class Header extends Component {
     }
     const element = document.getElementById(id);
     console.log(element);
-    window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
+    const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+    const isIE = /*@cc_on!@*/false || !!document.documentMode;
+    const isEdge = !isIE && !!window.StyleMedia;
+    const deprecatedBrowser = isSafari || isIE || isEdge;
+    if(!deprecatedBrowser){
+      window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'});
+    }else{
+      //element.scrollIntoView({block: "start"});
+      $('html, body').animate({
+          scrollTop: $(`#${id}`).offset().top - 100
+      }, 400);
+      //window.scroll(0, getOffset(element).top - 100);
+    }
   }
 
   toggleMobileMenu = () => {

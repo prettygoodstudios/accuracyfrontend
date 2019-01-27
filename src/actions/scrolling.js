@@ -1,3 +1,4 @@
+import $ from "jquery";
 
 function getOffset( el ) {
     var _x = 0;
@@ -16,7 +17,16 @@ export const setScroll = () => {
         if(id && id != ""){
             const element = document.getElementById(id);
             console.log(element);
-            setTimeout(() => window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'}), 200);
+            const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+            const isIE = /*@cc_on!@*/false || !!document.documentMode;
+            const isEdge = !isIE && !!window.StyleMedia;
+            const deprecatedBrowser = isSafari || isIE || isEdge;
+            if(!deprecatedBrowser){
+                setTimeout(() => window.scrollTo({left: 0,top: getOffset(element).top - 100, behavior: 'smooth'}), 200);
+            }else{
+                setTimeout(() => $('html, body').animate({scrollTop: $(`#${id}`).offset().top - 100}, 400), 200);
+            }
+            
         }
     }
 }
