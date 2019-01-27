@@ -74,6 +74,8 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "twitter": "^1.7.1",
+    "twitter-widgets": "^2.0.0",
     "url-loader": "^0.5.9",
     "webpack": "^3.1.0",
     "webpack-merge": "^4.1.0"

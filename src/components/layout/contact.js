@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import axios from "axios";
+import TwitterWidgetsLoader from "twitter-widgets";
 
 import Modal from '../widgets/modal';
 import Error from "../widgets/error";
 
 import { generateUrl } from '../../actions/urlHelpers';
+
+
 
 
 class Contact extends Component {
@@ -16,6 +19,17 @@ class Contact extends Component {
       email: "",
       error: ""
     }
+  }
+
+  componentDidMount(){
+    TwitterWidgetsLoader.load(function(err, twttr) {
+      if (err) {
+        //do some graceful degradation / fallback
+        return;
+      }
+      twttr.widgets.createFollowButton('AccuracyUt', document.getElementById('follow-accuracy'));
+      twttr.widgets.createTweet('1068347238751989760', document.getElementById('tweet-1'));
+    });
   }
 
   toggleModal = () => {
@@ -87,10 +101,9 @@ class Contact extends Component {
           </div>
         </div>
         <h1>Our Tweets</h1>
-        <a className="twitter-timeline" href="https://twitter.com/AccuracyUt?ref_src=twsrc%5Etfw">Tweets by AccuracyUt</a>
-        <h1>Leave us Feedback on Twitter</h1>
-        <a href="https://twitter.com/intent/tweet?screen_name=AccuracyUt&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">Tweet to @AccuracyUt</a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <div id="tweet-1"></div>
+        <h1>Follow us on Twitter</h1>
+        <div id="follow-accuracy"></div>
       </div>
     );
   }
