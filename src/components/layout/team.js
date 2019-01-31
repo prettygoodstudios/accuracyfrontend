@@ -6,13 +6,15 @@ import * as actions from "../../actions";
 import Modal from "../widgets/modal";
 
 const Member = (props) => {
-  const {title, name, admin, id, setEditModal} = props;
+  const {title, name, admin, id, setEditModal, profile_img} = props;
   return(
     <div className="team-wrapper__member">
-      <img src="https://s3-us-west-2.amazonaws.com/staticgeofocus/profile.png"/>
+      <div className="team-wrapper__member__img">
+        <img src={profile_img ? profile_img : "https://s3-us-west-2.amazonaws.com/staticgeofocus/profile.png"}/>
+      </div>
       <span className="team-wrapper__member__name">{name}</span>
       <span className="team-wrapper__member__title">{title}</span>
-      {admin && <a onClick={() => setEditModal(true, {name, id, jobTitle: title})} className="team-wrapper__member__title button">Edit</a>}
+      {admin && <a onClick={() => setEditModal(true, {name, id, jobTitle: title, profile_img: profile_img})} className="team-wrapper__member__title button">Edit</a>}
     </div>
   );
 }
@@ -25,12 +27,14 @@ class Team extends Component{
       createModal: {
         show: false,
         name: "",
-        jobTitle: ""
+        jobTitle: "",
+        profileImg: ""
       },
       editModal: {
         show: false,
         name: "",
         jobTitle: "",
+        profileImg: "",
         id: 0
       }
     }
@@ -54,13 +58,14 @@ class Team extends Component{
 
   setEditModal = (show, member) => {
     if(show){
-      const {name, jobTitle, id} = member;
+      const {name, jobTitle, id, profile_img} = member;
       this.setState({
         editModal: {
           show: true,
           name,
           id,
-          jobTitle
+          jobTitle,
+          profileImg: profile_img
         }
       });
     }else{
@@ -76,14 +81,14 @@ class Team extends Component{
   }
 
   createStaff = () => {
-    const {name, jobTitle} = this.state.createModal;
-    const params = {name, jobTitle, token: this.props.session};
+    const {name, jobTitle, profileImg} = this.state.createModal;
+    const params = {name, jobTitle, token: this.props.session, profileImg};
     this.props.createStaff(params, () => this.setState({createModal: {show: false, name: "", jobTitle: ""}}), () => alert("Error Creating Staff Member"));
   }
 
   editStaff = () => {
-    const {id, name, jobTitle} = this.state.editModal;
-    const params = {id, name, jobTitle, token: this.props.session};
+    const {id, name, jobTitle, profileImg} = this.state.editModal;
+    const params = {id, name, jobTitle, token: this.props.session, profileImg};
     this.props.editStaff(params, () => this.setState({editModal: {show: false, name: "", jobTitle: ""}}), (e) => alert(e));
   }
 
@@ -103,6 +108,8 @@ class Team extends Component{
               <input type="text" id="name" name="name" value={editModal.name} onChange={(t) => this.updateInput("edit", t)}></input>
               <label for="jobTitle">Job Title</label>
               <input type="text" id="jobTitle" name="jobTitle" value={editModal.jobTitle} onChange={(t) => this.updateInput("edit", t)}></input>
+              <label for="profileImg">Profile Image</label>
+              <input type="text" id="profileImg" name="profileImg" value={editModal.profileImg} onChange={(t) => this.updateInput("edit", t)}></input>
               <a onClick={() => this.props.deleteStaff({token: this.props.session, id: editModal.id}, () => this.editStaff(false), (e) => alert("Could not delete: "+e))} className="button">Delete</a>
             </div>
           </Modal>
@@ -115,14 +122,16 @@ class Team extends Component{
               <input type="text" id="name" name="name" value={createModal.name} onChange={(t) => this.updateInput("create", t)}></input>
               <label for="jobTitle">Job Title</label>
               <input type="text" id="jobTitle" name="jobTitle" value={createModal.jobTitle} onChange={(t) => this.updateInput("create", t)}></input>
+              <label for="profileImg">Profile Image</label>
+              <input type="text" id="profileImg" name="profileImg" value={createModal.profileImg} onChange={(t) => this.updateInput("create", t)}></input>
             </div>
           </Modal>
 
         }
         <div className="team-wrapper">
           {teamMembers && teamMembers.map((m, i) => {
-            const {name, job_title, id} = m
-            return <Member name={name} id={id} title={job_title} admin={(user.role && user.role == "admin")}  key={i} setEditModal={this.setEditModal}/>
+            const {name, job_title, id, profile_img} = m
+            return <Member name={name} id={id} title={job_title} profile_img={profile_img} admin={(user.role && user.role == "admin")}  key={i} setEditModal={this.setEditModal}/>
           })}
         </div>
       </div>
