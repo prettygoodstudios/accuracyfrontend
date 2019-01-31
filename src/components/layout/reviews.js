@@ -36,7 +36,11 @@ class Reviews extends Component {
     const {score, message} = this.state;
     if(score && score != 0){
       if(message.length >= 6){
-        this.props.leaveReview({token: session, score, message}, this.hideReviewForm, (e) => this.setState({error: e}));
+        if(message.length > 255){
+          this.setState({error: "Your message cannot exceed 255 characters."});
+        }else{
+          this.props.leaveReview({token: session, score, message}, this.hideReviewForm, (e) => this.setState({error: e}));
+        }
       }else{
         this.setState({error: "You must enter in a message atleast six characters long."});
       }
