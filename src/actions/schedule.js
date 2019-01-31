@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+
 import axios from 'axios';
 import {GET_APPOINTMENTS, SET_APPOINTMENT, CLEAR_APPOINTMENT, VIEW_APPOINTMENT, HIDE_APPOINTMENT, GET_STAFF, GET_MY_APPOINTMENTS, CREATE_STAFF, EDIT_STAFF, DELETE_STAFF, DELETE_APPOINTMENT} from './types';
 import {generateUrl} from "./urlHelpers";
@@ -6,14 +6,6 @@ import { setScroll } from './scrolling';
 
 
 
-const firebaseKeys = {
-  ...process.env
-};
-
-firebase.initializeApp(firebaseKeys);
-
-const rootReference = firebase.database().ref("/");
-const appointmentsReference = firebase.database().ref("/appointments");
 //const setValue = [{day: "Mon", appointments: [{ name: "", time: ""}, { name: "", time: ""}, { name: "", time: ""}, {name: "Dow Jones", time: "11 AM"}]}, {day: "Tues", appointments: [{ name: "", time: ""}, { name: "", time: ""}, { name: "", time: ""}, { name: "", time: ""}]}, {day: "Wed", appointments: [{name: "", title: ""}, {name: "", title: ""}, {name: "", title: ""}, {name: "", title: ""}]}, {day: "Thu", appointments: [{ name: "", time: ""}, { name: "", time: ""}, {name: "Citi Group", time: "6 AM"}, { name: "", time: ""}]}, {day: "Fri", appointments: [{name: "Nasdaq", time: "7 PM"}, { name: "", time: ""}, { name: "", time: ""}, { name: "", time: ""}]}];
 
 const parseAppointments = (data) => {

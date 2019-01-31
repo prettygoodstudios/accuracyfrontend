@@ -38,6 +38,8 @@
       }
     }
     &__apointment{
+      max-width: 117px;
+      overflow: hidden;
       &__time{
         font-size: 0.8em;
         text-align: center;

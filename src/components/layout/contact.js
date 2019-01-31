@@ -122,7 +122,7 @@ class Contact extends Component {
           return (
             <div id={`tweet-${i+1}`} key={i} className="tweet">
               <div className="tweet__title">
-                <img src={t.user.profile_image_url}/>
+                <img src={"https:"+t.user.profile_image_url.split("http:")[1]}/>
                 <h3>AccuracyUt</h3>
               </div>
               <span>{t.text}</span>
