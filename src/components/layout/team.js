@@ -98,7 +98,7 @@ class Team extends Component{
     const {createModal, editModal} = this.state;
     return(
       <div id="team">
-        <p><span className="start-phrase">Our team</span> we have a skilled set of qualified friendly profesonials to meet your every need.</p>
+        <p><span className="start-phrase">Our team</span> is comprised of friendly qualified professionals that can meet your every need. We believe that having experienced and competent staff, makes a true difference to our clients.</p>
         {user.role && user.role == "admin" && <center><a onClick={() => this.setState({createModal: {show: true, name: "", jobTitle: ""}})} className="button">Create a staff member!</a></center>}
         {editModal.show && 
           <Modal dismissModal={() => this.setState({editModal: {show: false, name: "", jobTitle: ""}})} submitModal={this.editStaff}>

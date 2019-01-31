@@ -67,7 +67,7 @@ class Reviews extends Component {
 
     return(
       <div id="reviews">
-        <p><span className="start-phrase">Our reviews</span> we are highly regarded by the vast majority of our clients. Here is a collection of some of their opinions.</p>
+        <p><span className="start-phrase">Our reviews</span> confirm our firm's precision and accuracy. We are highly regarded by the vast majority of our clients. Here is a collection of some of their opinions.</p>
         { (reviews.filter((r) => r.approved == 1).length > 0 || user.role == "admin") ?
           <div className="reviews-wrapper">
             {reviews.map((m, i) => {

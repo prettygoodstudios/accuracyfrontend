@@ -56,7 +56,7 @@ class Carousel extends Component {
 const Services = (props) => {
   return(
     <div id="services">
-      <p><span className="start-phrase">Our services</span>  here is a comprehensive list of the various different accounting services we provide. We charge by the hour inorder to get a quote for a particular product shedule an apointment with one of our friendly staff. </p>
+      <p><span className="start-phrase">Our services</span> are quite comprehensive and can suit the needs of most entrepreneurs and small businesses. Here is a complete list of the various accounting services we provide. Since we charge by the hour, schedule an appointment with one of our friendly staff members in order to get an accurate quote for your project.</p>
       <Carousel />
     </div>
   );
