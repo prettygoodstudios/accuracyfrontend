@@ -109,8 +109,8 @@ class Schedule extends Component{
       company: appointmentCompany
     }
     if(appointmentCompany != "" && appointmentTime != ""){
-      if(appointmentCompany.length > 10){
-        this.setState({error: "Your company/entity name can not exceed ten characters."});
+      if(appointmentCompany.length > 20){
+        this.setState({error: "Your company/entity name can not exceed twenty characters."});
       }else{
         this.props.uploadAppointment(myAppointment, this.props.session, () => console.log("success!"), (e) => alert("It failed", e));
         this.clearAppointment();
