@@ -19,6 +19,9 @@
       justify-content: center;
       border-radius: 50%;
       overflow: hidden;
+      img{
+        max-width: 300px;
+      }
     }
     
     &__title{
