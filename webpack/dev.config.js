@@ -69,7 +69,7 @@ module.exports = webpackMerge(webpackCommon, {
   plugins: [
     new DefinePlugin({
       'process.env': {
-        NODE_ENV: "'development'",
+        NODE_ENV: "'production'",
         ...firebaseKeys
       }
     }),

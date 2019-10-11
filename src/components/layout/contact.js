@@ -30,7 +30,7 @@ class Contact extends Component {
           return;
         }
         this.setState({
-          tweets: tweets.data
+          tweets: tweets.data.error ? [] : tweets.data
         });
         tweets.data.forEach((t, i) => {
           TwitterWidgetsLoader.load((err, twttr) => {
@@ -118,7 +118,7 @@ class Contact extends Component {
           </div>
         </div>
         <h1>Our Tweets</h1>
-        { tweets.map((t, i) => {
+        { tweets && tweets.map((t, i) => {
           return (
             <div id={`tweet-${i+1}`} key={i} className="tweet">
               <div className="tweet__title">
