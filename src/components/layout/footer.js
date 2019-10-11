@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import * as actions from "../../actions";
 
@@ -23,8 +24,8 @@ class Footer extends Component{
         </div>
         <div className="footer__right-section">
           <h3>More Links</h3>
-          <a href="/faq">FAQ</a>
-          <a href="/legal">Legal</a>
+          <Link to="/faq">FAQ</Link>
+          <Link to="/legal">Legal</Link>
           { this.props.session == "" ?
             <a onClick={() => this.props.logInModal(true)}>Log In</a>
             :

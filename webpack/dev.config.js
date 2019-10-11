@@ -33,7 +33,7 @@ module.exports = webpackMerge(webpackCommon, {
 
     chunkFilename: '[id]-chunk.js',
 
-    publicPath: '/'
+    publicPath: ''
 
   },
 
