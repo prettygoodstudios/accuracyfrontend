@@ -4,7 +4,6 @@ npm-debug.log
 yarn-error.log
 
 # project
-dist/
 env.js
 apiKeys.js
 .env
